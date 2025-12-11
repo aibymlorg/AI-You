@@ -31,7 +31,11 @@ const ImageLauncherSlide: React.FC<ImageLauncherSlideProps> = ({ data }) => {
           className="group relative flex items-center justify-center w-40 h-40 md:w-52 md:h-52 bg-white rounded-full shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_rgba(59,130,246,0.6)] hover:scale-110 transition-all duration-300 overflow-hidden"
         >
             <div className="absolute inset-0 rounded-full border-4 border-white/30 animate-ping" />
-            <img src="/image/ML.jpg" alt="ML" className="w-full h-full object-cover" />
+            <img
+              src={data.centerImage || "/image/ML.jpg"}
+              alt={data.title}
+              className="w-full h-full object-cover"
+            />
         </a>
 
         {/* Label */}

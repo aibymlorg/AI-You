@@ -20,6 +20,7 @@ export interface SlideData {
   permissions?: string; // iframe permissions like camera/microphone
   showBrowserChrome?: boolean; // Visual wrapper to look like a browser window
   backgroundImage?: string; // For IMAGE_LAUNCHER type
+  centerImage?: string; // Custom center image for IMAGE_LAUNCHER type
 }
 
 export interface NavigationProps {
