@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Report: Dr. Fei-Fei Li's Vision</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Custom scrollbar for a more polished look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background-color: var(--scrollbar-track-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: var(--scrollbar-thumb-color);
+            border-radius: 10px;
+            border: 2px solid var(--scrollbar-track-color);
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            --scrollbar-track-color: #ffedea;
+            --scrollbar-thumb-color: #7d0100;
+        }
+        html.dark body {
+            --scrollbar-track-color: #1a1a2e;
+            --scrollbar-thumb-color: #00f5d4;
+        }
+        
+        .animated-gradient {
+            background-size: 200% 200%;
+            animation: gradient-animation 15s ease infinite;
+        }
+
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .light .glass-card {
+            background: rgba(255, 248, 246, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(125, 1, 0, 0.1);
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .quiz-option.selected {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px var(--selection-glow-color);
+        }
+
+        .quiz-option.correct {
+            background: rgba(0, 245, 212, 0.2);
+            border-color: #00f5d4;
+            --selection-glow-color: #00f5d4;
+        }
+        .light .quiz-option.correct {
+            background: #d1fae5;
+            border-color: #10b981;
+            --selection-glow-color: #10b981;
+        }
+
+        .quiz-option.incorrect {
+            background: rgba(222, 55, 48, 0.2);
+            border-color: #de3730;
+            --selection-glow-color: #de3730;
+        }
+        .light .quiz-option.incorrect {
+            background: #fee2e2;
+            border-color: #ef4444;
+            --selection-glow-color: #ef4444;
+        }
+
+        .quiz-option:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body class="antialiased font-body bg-primary-light text-neutral-dark dark:bg-dk-bg dark:text-dk-text transition-colors duration-500">
+    <script>
+        // Set theme on page load
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+        } else {
+            document.documentElement.classList.add('light');
+            document.documentElement.classList.remove('dark');
+        }
+
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-dark': '#7d0100',
+                        'primary-light': '#fff8f6',
+                        'secondary-dark': '#513430',
+                        'secondary-light': '#ffedea',
+                        'bg-main': '#ffdad4',
+                        'error': '#de3730',
+                        'neutral-dark': '#413a38',
+                        'neutral-light': '#fff8f6',
+
+                        'dk-bg': '#0d0c22',
+                        'dk-surface': '#1a1a2e',
+                        'dk-primary': '#e0e1dd',
+                        'dk-accent': '#00f5d4',
+                        'dk-accent-2': '#9d4edd',
+                        'dk-text': '#f0f0f0',
+                        'dk-text-muted': '#a0a0b0',
+                    },
+                    fontFamily: {
+                        display: ['"Exo 2"', 'sans-serif'],
+                        body: ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        'fade-in-up': {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+
+    <div id="app-wrapper" class="min-h-screen">
+        
+        <!-- Header -->
+        <header class="relative p-6 lg:p-8 overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-bg-main to-secondary-light dark:from-dk-bg dark:via-dk-surface dark:to-dk-accent-2/30 animated-gradient"></div>
+            <div class="container mx-auto relative z-10">
+                <nav class="flex justify-between items-center">
+                    <h1 class="font-display text-2xl md:text-3xl font-bold text-primary-dark dark:text-dk-accent">AI DECODED</h1>
+                    <button id="theme-toggle" class="p-2 rounded-full text-primary-dark dark:text-dk-accent hover:bg-black/10 dark:hover:bg-white/10 transition-all duration-300">
+                        <svg id="theme-toggle-dark-icon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                        <svg id="theme-toggle-light-icon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </button>
+                </nav>
+
+                <div class="mt-16 mb-8 text-center">
+                    <h2 class="font-display text-4xl md:text-6xl lg:text-7xl font-extrabold text-primary-dark dark:text-white uppercase tracking-tighter">
+                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary-dark to-secondary-dark dark:from-dk-accent dark:to-dk-accent-2">The Vision of</span><br>Dr. Fei-Fei Li
+                    </h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-secondary-dark dark:text-dk-text-muted">An interactive report on the impact and future of Artificial Intelligence through the eyes of its "Godmother."</p>
+                    <a href="https://youtu.be/E2yzX6Gch40?si=ifkx1MRKiMdArusj" target="_blank" rel="noopener noreferrer" class="mt-8 inline-block bg-primary-dark dark:bg-dk-accent text-primary-light dark:text-dk-bg font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                        Watch Original Video
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <main class="container mx-auto px-4 py-12 md:py-16">
+            
+            <!-- Bento Grid Section -->
+            <section class="fade-in-up">
+                <h3 class="font-display text-3xl md:text-4xl font-bold text-center mb-10 text-primary-dark dark:text-dk-primary">Key Insights & Concepts</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <div class="lg:col-span-2 p-6 rounded-2xl glass-card transition-transform duration-300 hover:-translate-y-1">
+                        <h4 class="font-display text-xl font-bold text-primary-dark dark:text-dk-accent">A "Civilizational Technology"</h4>
+                        <p class="mt-2 text-secondary-dark dark:text-dk-text-muted">Dr. Li describes the current AI moment as "daunting and surreal." She defines AI as a civilizational technology, not because it's sentient, but because it will fundamentally affect everyone's life, work, and future. It's a "double-edged sword," capable of immense good and harm, underscoring the need for careful stewardship.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl glass-card transition-transform duration-300 hover:-translate-y-1">
+                        <h4 class="font-display text-xl font-bold text-primary-dark dark:text-dk-accent">Democratizing Power</h4>
+                        <p class="mt-2 text-secondary-dark dark:text-dk-text-muted">Acknowledging the concentration of AI power in a few tech giants, Dr. Li advocates for its democratization and stresses that every individual has agency in shaping AI's development.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl glass-card transition-transform duration-300 hover:-translate-y-1">
+                        <h4 class="font-display text-xl font-bold text-primary-dark dark:text-dk-accent">Spatial Intelligence</h4>
+                        <p class="mt-2 text-secondary-dark dark:text-dk-text-muted">Her startup, World Labs, focuses on "spatial intelligence"—AI's ability to perceive, reason about, and interact with 3D spaces. She sees this as the next frontier, complementing large language models.</p>
+                    </div>
+
+                    <div class="lg:col-span-2 p-6 rounded-2xl glass-card transition-transform duration-300 hover:-translate-y-1">
+                        <h4 class="font-display text-xl font-bold text-primary-dark dark:text-dk-accent">The ImageNet Revolution</h4>
+                        <p class="mt-2 text-secondary-dark dark:text-dk-text-muted">Dr. Li's journey led to the creation of ImageNet, a massive dataset of 15 million annotated images. This "big data" initiative was a paradigm shift from small, curated datasets, providing the fuel that ignited the deep learning revolution and enabled machines to achieve human-like object recognition.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl glass-card transition-transform duration-300 hover:-translate-y-1">
+                        <h4 class="font-display text-xl font-bold text-primary-dark dark:text-dk-accent">The Power of Resilience</h4>
+                        <p class="mt-2 text-secondary-dark dark:text-dk-text-muted">Her immigrant experience, managing a dry cleaning business through college, instilled deep resilience—a trait she deems vital for the non-linear, challenging path of scientific discovery.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pressing Issues Section -->
+            <section class="mt-20 fade-in-up">
+                <h3 class="font-display text-3xl md:text-4xl font-bold text-center mb-10 text-primary-dark dark:text-dk-primary">Addressing Global Challenges</h3>
+                <div id="accordion-container" class="max-w-4xl mx-auto space-y-4">
+                    <!-- Accordion items will be generated here by JS -->
+                </div>
+            </section>
+
+            <!-- Key Learnings Section -->
+            <section class="mt-20 fade-in-up">
+                 <h3 class="font-display text-3xl md:text-4xl font-bold text-center mb-10 text-primary-dark dark:text-dk-primary">Core Learning Points</h3>
+                 <div class="max-w-4xl mx-auto p-6 md:p-8 rounded-2xl glass-card">
+                     <ul class="space-y-4">
+                        <li class="flex items-start"><span class="text-primary-dark dark:text-dk-accent mr-3 mt-1">✓</span><span><strong>Human-Centered AI:</strong> Development must prioritize human values, agency, and responsible use. The agency should remain with humans, not machines.</span></li>
+                        <li class="flex items-start"><span class="text-primary-dark dark:text-dk-accent mr-3 mt-1">✓</span><span><strong>Role of Big Data:</strong> The creation of massive datasets like ImageNet was a foundational catalyst for modern AI's capabilities.</span></li>
+                        <li class="flex items-start"><span class="text-primary-dark dark:text-dk-accent mr-3 mt-1">✓</span><span><strong>Societal Impact:</strong> AI's effect on jobs, energy, and ethics requires nuanced responses, including upskilling, corporate responsibility, and thoughtful policy.</span></li>
+                        <li class="flex items-start"><span class="text-primary-dark dark:text-dk-accent mr-3 mt-1">✓</span><span><strong>Education is Key:</strong> Future generations must be taught critical thinking and ethical AI use to navigate this new world responsibly.</span></li>
+                        <li class="flex items-start"><span class="text-primary-dark dark:text-dk-accent mr-3 mt-1">✓</span><span><strong>Timeless Advice:</strong> "Don't do stupid things with your tools." Use AI to ask better questions and learn, not for laziness or malicious intent.</span></li>
+                     </ul>
+                 </div>
+            </section>
+
+            <!-- Interactive Quiz Section -->
+            <section class="mt-20 fade-in-up">
+                <h3 class="font-display text-3xl md:text-4xl font-bold text-center mb-10 text-primary-dark dark:text-dk-primary">Test Your Knowledge</h3>
+                <div id="quiz-container" class="max-w-4xl mx-auto space-y-8">
+                    <!-- Quiz questions will be injected here -->
+                </div>
+                <div id="quiz-results" class="mt-8 text-center max-w-4xl mx-auto hidden">
+                    <div class="p-8 rounded-2xl glass-card">
+                        <h4 class="font-display text-2xl font-bold text-primary-dark dark:text-dk-accent">Quiz Complete!</h4>
+                        <p class="mt-2 text-xl">Your Score: <span id="quiz-score" class="font-bold"></span></p>
+                        <p id="quiz-feedback" class="mt-4 text-lg"></p>
+                        <button id="quiz-retry-btn" class="mt-6 bg-primary-dark dark:bg-dk-accent text-primary-light dark:text-dk-bg font-bold py-2 px-6 rounded-full hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+                            Try Again
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center py-8 mt-16 border-t border-secondary-light dark:border-dk-surface">
+            <p class="text-secondary-dark dark:text-dk-text-muted">Interactive Report by AI Web Developer</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Theme Toggler ---
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const darkIcon = document.getElementById('theme-toggle-dark-icon');
+            const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+            const updateIcon = () => {
+                if (document.documentElement.classList.contains('dark')) {
+                    lightIcon.classList.remove('hidden');
+                    darkIcon.classList.add('hidden');
+                } else {
+                    lightIcon.classList.add('hidden');
+                    darkIcon.classList.remove('hidden');
+                }
+            };
+
+            themeToggleBtn.addEventListener('click', () => {
+                document.documentElement.classList.toggle('dark');
+                document.documentElement.classList.toggle('light');
+                
+                if (document.documentElement.classList.contains('dark')) {
+                    localStorage.theme = 'dark';
+                } else {
+                    localStorage.theme = 'light';
+                }
+                updateIcon();
+            });
+            updateIcon();
+
+
+            // --- Accordion for Pressing Issues ---
+            const accordionData = [
+                { title: 'Jobs & Labor Market', content: 'AI will significantly alter the labor market, displacing jobs in customer support, software engineering, and analyst roles. Dr. Li stresses the importance of upskilling and corporate/societal responsibility.' },
+                { title: 'Superintelligence & Regulation', content: 'Advocating for responsible development, Dr. Li cautions against over-focusing on extreme doomsday scenarios. The field is too nascent for international treaties, but global awareness is crucial.' },
+                { title: 'Energy Consumption', content: 'The massive energy demands of AI models are a real ecological challenge. This presents a major opportunity to innovate in renewable energy and re-examine national energy policies.' },
+                { title: 'Advice for Parents & Kids', content: 'Parents should empower children with timeless human values: agency, dignity, honesty, creativity, and critical thinking. These skills are essential for navigating an AI-powered world.' },
+                { title: 'Public Discourse & Responsibility', content: 'Dr. Li expresses concern over simplistic, binary discussions about AI and worries about misuse leading to public anxiety. She highlights the need to empower K-12 teachers to guide children in responsible AI use.' }
+            ];
+
+            const accordionContainer = document.getElementById('accordion-container');
+            accordionData.forEach((item, index) => {
+                const accordionItem = document.createElement('div');
+                accordionItem.className = 'border border-secondary-light dark:border-dk-surface rounded-lg overflow-hidden';
+                accordionItem.innerHTML = `
+                    <button class="w-full text-left p-4 flex justify-between items-center bg-primary-light dark:bg-dk-surface hover:bg-secondary-light dark:hover:bg-dk-surface/80 transition-colors">
+                        <span class="font-bold text-primary-dark dark:text-dk-primary">${item.title}</span>
+                        <svg class="w-5 h-5 transform transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                        <div class="p-4 text-secondary-dark dark:text-dk-text-muted bg-primary-light dark:bg-dk-surface/50">${item.content}</div>
+                    </div>
+                `;
+                accordionContainer.appendChild(accordionItem);
+
+                const button = accordionItem.querySelector('button');
+                const content = accordionItem.querySelector('div');
+                const icon = accordionItem.querySelector('svg');
+
+                button.addEventListener('click', () => {
+                    const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+                    if (isOpen) {
+                        content.style.maxHeight = '0px';
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+
+
+            // --- Quiz Logic ---
+            const quizData = [
+                { question: "According to Dr. Fei-Fei Li, why does she consider AI a 'civilizational technology'?", answers: ["Because it has achieved consciousness.", "Because it will impact everyone's life, work, well-being, and future.", "Because it can solve all of humanity's problems.", "Because it is only used for scientific research."], correctAnswer: "b" },
+                { question: "What is 'spatial intelligence' as described by Dr. Fei-Fei Li?", answers: ["AI's ability to write poetry.", "AI's capability to understand, perceive, reason, interact with, and create 3D spaces or worlds.", "The intelligence of astronauts in space.", "A new type of human memory."], correctAnswer: "b" },
+                { question: "What was the key significance of ImageNet in the advancement of modern AI?", answers: ["It was the first AI to pass the Turing test.", "It was a small, highly curated dataset for simple tasks.", "It represented a monumental 'big data' dataset that enabled machines to learn from vast amounts of visual information.", "It was a computer virus that showcased AI vulnerabilities."], correctAnswer: "c" },
+                { question: "What personal trait, learned from her family's business, does Dr. Li connect to scientific advancement?", answers: ["Patience", "Resilience", "Competitiveness", "Skepticism"], correctAnswer: "b" },
+                { question: "What is Dr. Li's advice for parents raising children in the age of AI?", answers: ["Ensure children avoid all AI technology.", "Empower kids with timeless human values like critical thinking, agency, and creativity.", "Encourage children to learn coding above all else.", "Let AI tutors handle all aspects of education."], correctAnswer: "b" },
+                { question: "How does Dr. Li view the high energy consumption of AI data centers?", answers: ["As an unsolvable problem that will halt AI progress.", "As a minor issue that can be ignored.", "As an opportunity to accelerate innovation and investment in renewable energy.", "As a problem only governments can solve."], correctAnswer: "c" },
+            ];
+
+            const quizContainer = document.getElementById('quiz-container');
+            const quizResultsContainer = document.getElementById('quiz-results');
+            const quizScoreEl = document.getElementById('quiz-score');
+            const quizFeedbackEl = document.getElementById('quiz-feedback');
+            const quizRetryBtn = document.getElementById('quiz-retry-btn');
+            let score = 0;
+            let questionsAnswered = 0;
+
+            const renderQuiz = () => {
+                score = 0;
+                questionsAnswered = 0;
+                quizContainer.innerHTML = '';
+                quizResultsContainer.classList.add('hidden');
+
+                quizData.forEach((q, index) => {
+                    const questionEl = document.createElement('div');
+                    questionEl.className = 'p-6 rounded-2xl glass-card';
+                    questionEl.innerHTML = `
+                        <p class="font-bold text-lg text-primary-dark dark:text-dk-primary mb-4">${index + 1}. ${q.question}</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3" data-question-index="${index}">
+                            ${q.answers.map((answer, i) => `
+                                <button class="quiz-option text-left p-3 border-2 border-secondary-light dark:border-dk-surface rounded-lg hover:border-primary-dark dark:hover:border-dk-accent transition-all duration-300" data-answer-index="${String.fromCharCode(97 + i)}">
+                                    <span class="font-bold mr-2">${String.fromCharCode(65 + i)}.</span> ${answer}
+                                </button>
+                            `).join('')}
+                        </div>
+                    `;
+                    quizContainer.appendChild(questionEl);
+                });
+
+                document.querySelectorAll('.quiz-option').forEach(btn => {
+                    btn.addEventListener('click', handleAnswer);
+                });
+            };
+
+            const handleAnswer = (event) => {
+                const selectedBtn = event.currentTarget;
+                const parentDiv = selectedBtn.parentElement;
+                const questionIndex = parseInt(parentDiv.dataset.questionIndex);
+                const selectedAnswer = selectedBtn.dataset.answerIndex;
+                const correctAnswer = quizData[questionIndex].correctAnswer;
+
+                parentDiv.querySelectorAll('.quiz-option').forEach(btn => {
+                    btn.disabled = true;
+                    if(btn.dataset.answerIndex === correctAnswer) {
+                        btn.classList.add('correct');
+                    }
+                });
+
+                if (selectedAnswer === correctAnswer) {
+                    score++;
+                    selectedBtn.classList.add('correct');
+                } else {
+                    selectedBtn.classList.add('incorrect');
+                }
+                
+                selectedBtn.classList.add('selected');
+                questionsAnswered++;
+                
+                if (questionsAnswered === quizData.length) {
+                    showResults();
+                }
+            };
+
+            const showResults = () => {
+                quizScoreEl.textContent = `${score} / ${quizData.length}`;
+                const percentage = (score / quizData.length) * 100;
+                let feedback = "Good effort! There's always more to learn.";
+                if (percentage === 100) feedback = "Perfect score! You're an AI expert.";
+                else if (percentage >= 75) feedback = "Excellent! You have a great grasp of the concepts.";
+                else if (percentage >= 50) feedback = "Well done! You're on the right track.";
+                quizFeedbackEl.textContent = feedback;
+                quizResultsContainer.classList.remove('hidden');
+                quizResultsContainer.scrollIntoView({ behavior: 'smooth' });
+            };
+            
+            quizRetryBtn.addEventListener('click', renderQuiz);
+            
+            renderQuiz();
+
+            // --- Scroll Animations ---
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in-up').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

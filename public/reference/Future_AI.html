@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Report: The Future of AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        .panel.active {
+            display: block;
+        }
+        .glass-card {
+            background: rgba(255, 248, 246, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 248, 246, 0.1);
+        }
+        .quiz-option.correct {
+            background-color: #10B981 !important; /* A vibrant green for correct answers */
+            border-color: #10B981 !important;
+            color: white !important;
+            transform: scale(1.02);
+        }
+        .quiz-option.incorrect {
+            background-color: #de3730 !important; /* user defined error color */
+            border-color: #de3730 !important;
+            color: white !important;
+        }
+        .quiz-option.correct-answer {
+             outline: 2px solid #10B981;
+             outline-offset: 2px;
+        }
+
+        .tab.active {
+            background-color: #7d0100;
+            color: #fff8f6;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #413a38;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #7d0100;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a10200;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-dark': '#7d0100',
+                        'primary-light': '#fff8f6',
+                        'secondary-dark': '#513430',
+                        'secondary-light': '#ffedea',
+                        'background': '#ffdad4',
+                        'error': '#de3730',
+                        'neutral-dark': '#413a38',
+                        'neutral-light': '#fff8f6',
+                        'brand-bg': '#2C2523' // A custom dark background for the body
+                    },
+                    fontFamily: {
+                        'outfit': ['Outfit', 'sans-serif'],
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-brand-bg to-secondary-dark text-primary-light font-inter antialiased">
+
+    <div class="relative min-h-screen overflow-x-hidden">
+        <!-- Background decorative elements -->
+        <div class="absolute top-0 left-0 -translate-x-1/3 -translate-y-1/3 w-96 h-96 bg-primary-dark/20 rounded-full filter blur-3xl opacity-50 pointer-events-none"></div>
+        <div class="absolute bottom-0 right-0 translate-x-1/3 translate-y-1/3 w-96 h-96 bg-background/20 rounded-full filter blur-3xl opacity-50 pointer-events-none"></div>
+
+        <main class="relative z-10 p-4 sm:p-6 md:p-8 max-w-6xl mx-auto">
+            <!-- Hero Section -->
+            <header class="text-center py-12 md:py-20 fade-in">
+                <h1 class="font-outfit text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">
+                    The <span class="text-background">Future of AI</span> is Now
+                </h1>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-primary-light/80">
+                    An interactive deep dive into Foundation Models, Generative AI, and the philosophical shifts driving the new AI paradigm.
+                </p>
+                <a href="https://youtu.be/y1fGlAECNFM?si=YLLgR0AMO1hz-tIA" target="_blank" rel="noopener noreferrer" 
+                   class="inline-flex items-center gap-2 mt-8 px-8 py-3 bg-primary-dark text-primary-light font-semibold rounded-lg shadow-lg hover:bg-red-900 transition-all duration-300 transform hover:scale-105">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                    </svg>
+                    Watch The Full Lecture
+                </a>
+            </header>
+
+            <!-- Tab Navigation -->
+            <div class="flex justify-center mb-8 fade-in" style="animation-delay: 0.2s;">
+                <div class="flex space-x-2 p-1.5 bg-neutral-dark/50 rounded-xl glass-card">
+                    <button id="tab-report" class="tab active px-6 py-2 rounded-lg font-semibold text-sm transition-colors duration-300">Analysis Report</button>
+                    <button id="tab-quiz" class="tab px-6 py-2 rounded-lg font-semibold text-sm text-primary-light/70 hover:text-primary-light transition-colors duration-300">Interactive Quiz</button>
+                </div>
+            </div>
+
+            <!-- Content Panels -->
+            <div id="content-panels" class="fade-in" style="animation-delay: 0.4s;">
+                <!-- Analysis Report Panel -->
+                <div id="panel-report" class="panel active">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Main Topic Card -->
+                        <div class="md:col-span-3 p-6 rounded-2xl glass-card">
+                            <h2 class="font-outfit text-2xl font-bold text-background mb-3">Main Topic</h2>
+                            <p class="text-primary-light/90">An introduction to the foundational shift in AI, focusing on the rise of foundation models and generative AI, with a particular emphasis on self-supervised learning as the underlying mechanism. The lecture also explores philosophical perspectives on learning and the structure of the world that led to these advancements.</p>
+                        </div>
+
+                        <!-- Key Learning Points Section -->
+                        <h3 class="md:col-span-3 font-outfit text-3xl font-bold tracking-tight mt-6 mb-0">Key Learning Points</h3>
+                        
+                        <div class="p-6 rounded-2xl glass-card md:col-span-2">
+                             <h4 class="font-outfit text-xl font-bold text-background mb-2">The "Secret Sauce": Self-Supervised Learning</h4>
+                            <p class="text-primary-light/90">The key breakthrough enabling current AI models is learning from observation, or self-supervised learning. This mirrors human learning, where we understand concepts by observing their relationships and context, rather than explicit instruction.</p>
+                        </div>
+                        
+                        <div class="p-6 rounded-2xl glass-card">
+                            <h4 class="font-outfit text-xl font-bold text-background mb-2">New AI Paradigm</h4>
+                            <p class="text-primary-light/90">Current advancements in AI represent a significant shift. ChatGPT is just the "tip of the iceberg" built upon the massive foundation of generative AI.</p>
+                        </div>
+
+                        <div class="p-6 rounded-2xl glass-card">
+                            <h4 class="font-outfit text-xl font-bold text-background mb-2">Human Learning Analogies</h4>
+                             <ul class="space-y-2 list-disc list-inside text-primary-light/90">
+                                <li><strong>Supervised:</strong> Parent/teacher instruction. Scales poorly.</li>
+                                <li><strong>Reinforcement:</strong> Goal optimization. Risky and inefficient for "blank slate" learning.</li>
+                                <li><strong>Self-Supervised:</strong> The primary mechanism. Learning by observation and context.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="p-6 rounded-2xl glass-card md:col-span-2">
+                            <h4 class="font-outfit text-xl font-bold text-background mb-2">Philosophical Underpinnings</h4>
+                            <p class="text-primary-light/90">The lecture contrasts the historical top-down "design" approach (inspired by Greek philosophy of perfect order) with the new bottom-up "learning" approach. The human brain, optimized for navigating chaos, is the model for neural networks, which excel at learning from unstructured, chaotic data.</p>
+                        </div>
+
+                        <div class="p-6 rounded-2xl glass-card md:col-span-3">
+                            <h4 class="font-outfit text-xl font-bold text-background mb-2">AGI & Course Overview</h4>
+                            <p class="text-primary-light/90 mb-2">While hype is high, the speaker suggests AGI is still far off. The course is structured to cover everything from AI history and model mechanics (Lectures 1-2) to case studies like ChatGPT and Stable Diffusion (3-4), emerging models (5), and ethics (6).</p>
+                        </div>
+
+                         <div class="md:col-span-3 p-6 rounded-2xl glass-card bg-primary-dark/30">
+                            <h2 class="font-outfit text-2xl font-bold text-background mb-3">Overall Educational Relevance</h2>
+                            <p class="text-primary-light/90">The video provides a highly relevant and accessible introduction to the "Future of AI." It excels in its non-technical approach, using relatable analogies and philosophical discussions to explain complex concepts. The breakdown of different learning paradigms is particularly valuable for new learners, and the emphasis on intuition enhances its educational value for a broad audience.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Quiz Panel -->
+                <div id="panel-quiz" class="panel hidden">
+                    <div class="space-y-8 max-w-3xl mx-auto">
+                        <!-- Questions will be injected here by JS -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Tab switching logic
+            const tabButtons = document.querySelectorAll('.tab');
+            const contentPanels = document.querySelectorAll('.panel');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetPanelId = button.id.replace('tab-', 'panel-');
+
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                        btn.classList.add('text-primary-light/70', 'hover:text-primary-light');
+                    });
+                    
+                    button.classList.add('active');
+                    button.classList.remove('text-primary-light/70', 'hover:text-primary-light');
+
+                    contentPanels.forEach(panel => {
+                        if (panel.id === targetPanelId) {
+                            panel.classList.add('active');
+                            panel.classList.remove('hidden');
+                        } else {
+                            panel.classList.remove('active');
+                            panel.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            // Quiz logic
+            const quizData = [
+                {
+                    question: "What does the speaker identify as the 'secret sauce' behind foundation models and generative AI?",
+                    options: [
+                        "Supervised learning with extensive human labeling",
+                        "Reinforcement learning through trial and error in complex environments",
+                        "Learning from observation, also known as self-supervised learning",
+                        "Designing intricate algorithms based on predefined blueprints"
+                    ],
+                    correctAnswer: "Learning from observation, also known as self-supervised learning"
+                },
+                {
+                    question: "According to the lecture, what is the primary limitation of supervised learning?",
+                    options: [
+                        "It struggles with tasks requiring creativity and original content generation.",
+                        "It relies heavily on human labor for labeling data and often fails to generalize well to diverse real-world settings.",
+                        "It has difficulty optimizing long-term goals due to delayed feedback.",
+                        "It requires immense computational power, making it prohibitively expensive."
+                    ],
+                    correctAnswer: "It relies heavily on human labor for labeling data and often fails to generalize well to diverse real-world settings."
+                },
+                {
+                    question: "Which of the following best describes the speaker's view on Artificial General Intelligence (AGI)?",
+                    options: [
+                        "AGI has already been achieved with the latest AI breakthroughs.",
+                        "AGI is imminent and will likely be realized within the next year.",
+                        "AGI is still a long way off, and its definition, pathways, and timeline are open questions.",
+                        "AGI is a theoretical concept that is unlikely to ever be achieved."
+                    ],
+                    correctAnswer: "AGI is still a long way off, and its definition, pathways, and timeline are open questions."
+                },
+                {
+                    question: "The concept of 'meaning is relational' is central to self-supervised learning. Which example is used to illustrate this principle?",
+                    options: [
+                        "A child learning to identify a dog by being told its name.",
+                        "A self-driving car learning to navigate by optimizing a goal of reaching home.",
+                        "A generative AI model confusing a dog and a computer mouse when asked to generate 'a dog playing with a mouse' due to unclear contextual relations.",
+                        "A human being learning to play chess through repeated practice and feedback."
+                    ],
+                    correctAnswer: "A generative AI model confusing a dog and a computer mouse when asked to generate 'a dog playing with a mouse' due to unclear contextual relations."
+                },
+                {
+                    question: "What philosophical perspective, influenced by the ancient Greeks, does the speaker suggest has historically dominated Western thought and AI development, but has limitations when dealing with the unpredictable nature of reality?",
+                    options: [
+                        "Bottom-up, learning, chaos",
+                        "Top-down, designing, order",
+                        "Relational, intuitive, flexible",
+                        "Self-supervised, observational, adaptive"
+                    ],
+                    correctAnswer: "Top-down, designing, order"
+                }
+            ];
+
+            const quizContainer = document.querySelector('#panel-quiz .space-y-8');
+
+            quizData.forEach((q, index) => {
+                const questionElement = document.createElement('div');
+                questionElement.className = 'p-6 rounded-2xl glass-card space-y-4';
+                
+                const questionText = document.createElement('p');
+                questionText.className = 'font-outfit text-xl font-semibold';
+                questionText.textContent = `${index + 1}. ${q.question}`;
+                questionElement.appendChild(questionText);
+
+                const optionsContainer = document.createElement('div');
+                optionsContainer.className = 'grid grid-cols-1 sm:grid-cols-2 gap-3';
+                
+                q.options.forEach(optionText => {
+                    const optionButton = document.createElement('button');
+                    optionButton.className = 'quiz-option text-left p-4 border border-primary-light/20 rounded-lg hover:bg-primary-light/10 transition-all duration-200';
+                    optionButton.textContent = optionText;
+                    optionButton.dataset.correct = (optionText === q.correctAnswer);
+                    optionsContainer.appendChild(optionButton);
+                });
+
+                questionElement.appendChild(optionsContainer);
+                
+                const feedbackText = document.createElement('p');
+                feedbackText.className = 'feedback-text text-sm font-medium h-5 transition-opacity duration-300';
+                questionElement.appendChild(feedbackText);
+
+                quizContainer.appendChild(questionElement);
+            });
+
+            quizContainer.addEventListener('click', (e) => {
+                if (e.target.classList.contains('quiz-option')) {
+                    const button = e.target;
+                    const questionContainer = button.closest('.glass-card');
+                    
+                    if (questionContainer.dataset.answered) {
+                        return;
+                    }
+                    questionContainer.dataset.answered = 'true';
+
+                    const isCorrect = button.dataset.correct === 'true';
+                    const feedback = questionContainer.querySelector('.feedback-text');
+                    const options = questionContainer.querySelectorAll('.quiz-option');
+
+                    if (isCorrect) {
+                        button.classList.add('correct');
+                        feedback.textContent = 'Correct! Well done.';
+                        feedback.style.color = '#10B981';
+                    } else {
+                        button.classList.add('incorrect');
+                        feedback.textContent = "Not quite. The correct answer is highlighted.";
+                        feedback.style.color = '#de3730';
+                        const correctButton = questionContainer.querySelector('[data-correct="true"]');
+                        correctButton.classList.add('correct-answer');
+                    }
+                    
+                    options.forEach(opt => {
+                       opt.disabled = true;
+                    });
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>

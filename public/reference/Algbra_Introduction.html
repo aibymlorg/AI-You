@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Report: Introduction to Algebra</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        .quiz-option.correct {
+            background-color: theme('colors.correct.bg') !important;
+            border-color: theme('colors.correct.border') !important;
+            color: theme('colors.correct.text') !important;
+        }
+        .quiz-option.incorrect {
+            background-color: theme('colors.incorrect.bg') !important;
+            border-color: theme('colors.incorrect.border') !important;
+            color: theme('colors.incorrect.text') !important;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand': {
+                            'primary': '#7d0100',
+                            'primary-light': '#fff8f6',
+                            'secondary': '#513430',
+                            'secondary-light': '#ffedea',
+                            'bg-light': '#ffdad4',
+                            'neutral-dark': '#413a38',
+                            'neutral-light': '#fff8f6',
+                        },
+                        'correct': {
+                            'bg': 'rgba(22, 163, 74, 0.2)',
+                            'border': '#16a34a',
+                            'text': '#f0fdf4',
+                        },
+                        'incorrect': {
+                            'bg': 'rgba(222, 55, 48, 0.2)',
+                            'border': '#de3730',
+                            'text': '#fef2f2',
+                        }
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'display': ['Outfit', 'sans-serif'],
+                    },
+                    backdropBlur: {
+                        'xl': '20px',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-[#1a1211] to-[#211a19] text-brand-neutral-light font-sans antialiased">
+    <div class="min-h-screen p-4 sm:p-6 lg:p-8">
+        <main class="max-w-5xl mx-auto space-y-12">
+            
+            <!-- Header -->
+            <header class="text-center fade-in" style="animation-delay: 100ms;">
+                <h1 class="text-4xl sm:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand-secondary-light to-white">Interactive Report</h1>
+                <p class="mt-2 text-lg sm:text-xl text-brand-bg-light/80">An Educational Analysis of "Introduction to Algebra"</p>
+            </header>
+
+            <!-- Video Link & Report -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Left Column: Video Link -->
+                <div class="lg:col-span-1 space-y-8">
+                    <div class="fade-in p-6 bg-brand-secondary/30 rounded-2xl border border-white/10 backdrop-blur-xl shadow-2xl shadow-black/20" style="animation-delay: 200ms;">
+                        <h2 class="text-2xl font-display font-semibold text-brand-secondary-light mb-4">Original Content</h2>
+                        <a href="https://youtu.be/vMJYlFIn_l0?si=v5hyXLOGwiydPEpK" target="_blank" rel="noopener noreferrer" class="group block relative overflow-hidden rounded-lg">
+                            <img src="https://img.youtube.com/vi/kYc3_TB2p5s/maxresdefault.jpg" alt="Video thumbnail for Introduction to Algebra" class="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-black/50 flex items-center justify-center transition-opacity duration-300 group-hover:opacity-100 opacity-75">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-white drop-shadow-lg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </a>
+                        <p class="text-sm text-brand-bg-light/70 mt-4">Click the thumbnail above to watch the full video on YouTube.</p>
+                    </div>
+                </div>
+
+                <!-- Right Column: Educational Report -->
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="fade-in" style="animation-delay: 300ms;">
+                        <h2 class="text-2xl font-display font-semibold text-brand-secondary-light mb-4">Educational Content Breakdown</h2>
+                        <div class="space-y-4">
+                            <!-- Report Item 1 -->
+                            <details class="group bg-brand-secondary/30 p-4 rounded-lg border border-white/10 backdrop-blur-xl cursor-pointer transition-all duration-300 hover:border-brand-primary/50 open:border-brand-primary">
+                                <summary class="flex justify-between items-center font-semibold text-brand-secondary-light">
+                                    Algebra's Relation to Arithmetic
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </summary>
+                                <div class="mt-3 text-brand-bg-light/80 text-sm space-y-2">
+                                    <p><strong class="text-brand-secondary-light">Key Idea:</strong> Algebra evolves from arithmetic by introducing symbols (variables) to represent numbers.</p>
+                                    <p><strong class="text-brand-secondary-light">Relevance:</strong> This comparison provides a familiar starting point, making the transition to algebra less intimidating for new learners.</p>
+                                </div>
+                            </details>
+                            <!-- Report Item 2 -->
+                            <details class="group bg-brand-secondary/30 p-4 rounded-lg border border-white/10 backdrop-blur-xl cursor-pointer transition-all duration-300 hover:border-brand-primary/50 open:border-brand-primary">
+                                <summary class="flex justify-between items-center font-semibold text-brand-secondary-light">
+                                    The Role of Variables
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </summary>
+                                <div class="mt-3 text-brand-bg-light/80 text-sm space-y-2">
+                                    <p><strong class="text-brand-secondary-light">Key Learning Point:</strong> Variables (e.g., X, Y) are symbols representing unknown numbers, which is the core distinction from basic math.</p>
+                                    <p><strong class="text-brand-secondary-light">Relevance:</strong> Understanding this concept is the foundational step into algebraic thinking.</p>
+                                </div>
+                            </details>
+                            <!-- Report Item 3 -->
+                           <details class="group bg-brand-secondary/30 p-4 rounded-lg border border-white/10 backdrop-blur-xl cursor-pointer transition-all duration-300 hover:border-brand-primary/50 open:border-brand-primary">
+                                <summary class="flex justify-between items-center font-semibold text-brand-secondary-light">
+                                    The Language of Operations
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </summary>
+                                <div class="mt-3 text-brand-bg-light/80 text-sm space-y-2">
+                                    <p><strong class="text-brand-secondary-light">Key Learning Points:</strong> Covers new notations for operations, like `4X` for multiplication and using fractions for division.</p>
+                                    <p><strong class="text-brand-secondary-light">Relevance:</strong> Familiarizes learners with the syntax and conventions of algebraic expressions.</p>
+                                </div>
+                            </details>
+                            <!-- Report Item 4 -->
+                            <details class="group bg-brand-secondary/30 p-4 rounded-lg border border-white/10 backdrop-blur-xl cursor-pointer transition-all duration-300 hover:border-brand-primary/50 open:border-brand-primary">
+                                <summary class="flex justify-between items-center font-semibold text-brand-secondary-light">
+                                    Algebra as a Tool for Equations
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </summary>
+                                <div class="mt-3 text-brand-bg-light/80 text-sm space-y-2">
+                                    <p><strong class="text-brand-secondary-light">Key Learning Point:</strong> The "Golden Rule of Algebra" is introduced: what you do to one side of an equation, you must do to the other to maintain balance.</p>
+                                    <p><strong class="text-brand-secondary-light">Relevance:</strong> This highlights the practical purpose of algebra as a powerful problem-solving method.</p>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                    <!-- Overall Relevance -->
+                    <div class="fade-in p-6 bg-gradient-to-br from-brand-primary/20 to-brand-secondary/30 rounded-2xl border border-brand-primary/60 shadow-lg shadow-black/30" style="animation-delay: 400ms;">
+                        <h3 class="text-xl font-display font-semibold text-brand-secondary-light mb-2">Overall Educational Relevance</h3>
+                        <p class="text-brand-bg-light/90">This video is a highly accessible and effective introduction to algebra. It successfully demystifies the subject by connecting it to familiar arithmetic concepts, making it perfect for beginners. The clear explanations of variables and the "Golden Rule" lay a solid conceptual foundation for future learning.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Quiz -->
+            <section class="fade-in" style="animation-delay: 500ms;">
+                <h2 class="text-3xl font-display font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-brand-secondary-light to-white mb-6">Test Your Knowledge</h2>
+                <div id="quiz-container" class="max-w-3xl mx-auto bg-brand-secondary/30 p-6 sm:p-8 rounded-2xl border border-white/10 backdrop-blur-xl shadow-2xl shadow-black/20">
+                    
+                    <div id="quiz-content">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 id="question-text" class="text-xl sm:text-2xl font-semibold text-brand-secondary-light">Loading quiz...</h3>
+                            <p id="question-counter" class="text-sm font-medium bg-brand-primary/80 text-white py-1 px-3 rounded-full">Question 1 / 5</p>
+                        </div>
+                        <div id="options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <!-- Options will be injected here by JavaScript -->
+                        </div>
+                        <div id="feedback-container" class="mt-6 text-center">
+                            <p id="feedback-text" class="text-lg font-medium">&nbsp;</p>
+                            <button id="next-button" class="hidden mt-4 bg-brand-primary hover:bg-red-900 text-white font-bold py-2 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg">Next Question</button>
+                        </div>
+                    </div>
+
+                    <div id="results-screen" class="hidden text-center">
+                        <h3 class="text-3xl font-display font-bold text-brand-secondary-light mb-4">Quiz Complete!</h3>
+                        <p class="text-lg text-brand-bg-light/80 mb-2">Your score:</p>
+                        <p id="score-text" class="text-6xl font-bold text-white mb-6">0 / 5</p>
+                        <p id="score-message" class="text-xl text-brand-secondary-light mb-8"></p>
+                        <button id="restart-button" class="bg-brand-primary hover:bg-red-900 text-white font-bold py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg">Try Again</button>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+        <footer class="text-center text-brand-bg-light/50 text-sm mt-12 pb-4">
+            <p>Interactive report generated by AI Developer.</p>
+        </footer>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "How does algebra fundamentally differ from basic arithmetic (basic math)?",
+                options: [
+                    "Algebra uses more complex numbers, while basic math uses simple numbers.",
+                    "Algebra focuses on geometry, while basic math focuses on calculations.",
+                    "Algebra uses symbols (variables) to represent numbers, while basic math primarily uses numbers to represent numbers.",
+                    "Algebra is only for high school students, while basic math is for elementary school."
+                ],
+                answer: "Algebra uses symbols (variables) to represent numbers, while basic math primarily uses numbers to represent numbers."
+            },
+            {
+                question: "What is the primary purpose of a variable in algebra, such as 'X' or 'Y'?",
+                options: [
+                    "To represent geometric shapes.",
+                    "To represent a fixed, known constant value.",
+                    "To represent an unknown or general number.",
+                    "To act as a placeholder for mathematical operations."
+                ],
+                answer: "To represent an unknown or general number."
+            },
+            {
+                question: "In algebra, how is the multiplication of a number and a variable (e.g., 4 times X) most commonly expressed?",
+                options: [
+                    "4 * X (using an asterisk)",
+                    "4x (using a lowercase 'x' as a multiplication sign)",
+                    "4X (placing the number next to the variable)",
+                    "4 ⋅ X (using a raised dot)"
+                ],
+                answer: "4X (placing the number next to the variable)"
+            },
+            {
+                question: "Which of the following correctly simplifies the algebraic expression X + X?",
+                options: ["X²", "2X", "X+X", "X^2"],
+                answer: "2X"
+            },
+            {
+                question: "What is known as the \"Golden Rule of Algebra\" when solving equations?",
+                options: [
+                    "Always multiply both sides by the same number.",
+                    "Whatever operation is performed on one side of an equation must also be performed on the other side.",
+                    "Variables must always be isolated on the left side of the equation.",
+                    "The solution to an equation must always be a positive integer."
+                ],
+                answer: "Whatever operation is performed on one side of an equation must also be performed on the other side."
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let answerSelected = false;
+
+        const questionTextEl = document.getElementById('question-text');
+        const questionCounterEl = document.getElementById('question-counter');
+        const optionsContainerEl = document.getElementById('options-container');
+        const feedbackTextEl = document.getElementById('feedback-text');
+        const nextButtonEl = document.getElementById('next-button');
+        const quizContentEl = document.getElementById('quiz-content');
+        const resultsScreenEl = document.getElementById('results-screen');
+        const scoreTextEl = document.getElementById('score-text');
+        const scoreMessageEl = document.getElementById('score-message');
+        const restartButtonEl = document.getElementById('restart-button');
+
+        function loadQuestion() {
+            answerSelected = false;
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionTextEl.textContent = currentQuestion.question;
+            questionCounterEl.textContent = `Question ${currentQuestionIndex + 1} / ${quizData.length}`;
+            optionsContainerEl.innerHTML = '';
+            
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('quiz-option', 'p-4', 'rounded-lg', 'border', 'border-white/20', 'bg-white/5', 'text-left', 'w-full', 'transition-all', 'duration-200', 'hover:bg-white/10', 'hover:border-white/30', 'disabled:cursor-not-allowed');
+                button.onclick = () => selectAnswer(button, option);
+                optionsContainerEl.appendChild(button);
+            });
+
+            feedbackTextEl.innerHTML = '&nbsp;';
+            nextButtonEl.classList.add('hidden');
+        }
+
+        function selectAnswer(button, selectedOption) {
+            if (answerSelected) return;
+            answerSelected = true;
+
+            const currentQuestion = quizData[currentQuestionIndex];
+            const isCorrect = selectedOption === currentQuestion.answer;
+
+            if (isCorrect) {
+                score++;
+                button.classList.add('correct');
+                feedbackTextEl.textContent = 'Correct!';
+                feedbackTextEl.style.color = 'var(--tw-prose-body, #16a34a)';
+            } else {
+                button.classList.add('incorrect');
+                feedbackTextEl.textContent = 'Incorrect!';
+                feedbackTextEl.style.color = 'var(--tw-prose-body, #de3730)';
+            }
+
+            Array.from(optionsContainerEl.children).forEach(child => {
+                child.disabled = true;
+                if (child.textContent === currentQuestion.answer) {
+                    child.classList.add('correct');
+                }
+            });
+
+            if (currentQuestionIndex < quizData.length - 1) {
+                nextButtonEl.classList.remove('hidden');
+            } else {
+                setTimeout(showResults, 1500);
+            }
+        }
+
+        function showResults() {
+            quizContentEl.classList.add('hidden');
+            resultsScreenEl.classList.remove('hidden');
+            scoreTextEl.textContent = `${score} / ${quizData.length}`;
+            
+            let message = '';
+            const percentage = (score / quizData.length) * 100;
+            if (percentage === 100) {
+                message = "Perfect! You're an algebra whiz!";
+            } else if (percentage >= 80) {
+                message = "Great job! You have a solid understanding.";
+            } else if (percentage >= 60) {
+                message = "Good effort! A little review will help.";
+            } else {
+                message = "Keep practicing! You'll get there.";
+            }
+            scoreMessageEl.textContent = message;
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            resultsScreenEl.classList.add('hidden');
+            quizContentEl.classList.remove('hidden');
+            loadQuestion();
+        }
+
+        nextButtonEl.addEventListener('click', () => {
+            currentQuestionIndex++;
+            loadQuestion();
+        });
+
+        restartButtonEl.addEventListener('click', restartQuiz);
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', loadQuestion);
+    </script>
+</body>
+</html>

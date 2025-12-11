@@ -1,0 +1,8 @@
+{
+  "name": "AI & You",
+  "description": "Interactive presentation platform for Grade 10 students exploring the future of AI.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
