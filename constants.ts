@@ -327,52 +327,327 @@ const futureAiHtml = `
 
 const feiFeiHtml = `
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
-${fontImport}
-<style>
-  body { 
-    background: #f8fafc; 
-    color: #1e293b; 
-    font-family: 'Inter', sans-serif; 
-    padding: 40px; 
-    line-height: 1.8; 
-    transition: 0.3s; 
-  }
-  body.dark { background: #0f172a; color: #e2e8f0; }
-  h1 { font-size: 2.5rem; margin-bottom: 10px; font-weight: 800; }
-  p { font-weight: 300; font-size: 1.1rem; }
-  strong { font-weight: 600; }
-  button { 
-    padding: 8px 16px; 
-    cursor: pointer; 
-    border-radius: 6px; 
-    border: 1px solid #cbd5e1; 
-    background: white;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-  }
-  body.dark button {
-    background: #1e293b;
-    border-color: #334155;
-    color: #fff;
-  }
-</style>
-<script>
-  function toggleTheme() {
-    document.body.classList.toggle('dark');
-  }
-</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Fei-Fei Li: The AI Godmother</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    ${fontImport}
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background-color: var(--scrollbar-track-color); }
+        ::-webkit-scrollbar-thumb { background-color: var(--scrollbar-thumb-color); border-radius: 10px; }
+        html { scroll-behavior: smooth; }
+        body {
+            --scrollbar-track-color: #ffedea;
+            --scrollbar-thumb-color: #7d0100;
+        }
+        html.dark body {
+            --scrollbar-track-color: #1a1a2e;
+            --scrollbar-thumb-color: #00f5d4;
+        }
+        .animated-gradient {
+            background-size: 200% 200%;
+            animation: gradient-animation 15s ease infinite;
+        }
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .light .glass-card {
+            background: rgba(255, 248, 246, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(125, 1, 0, 0.1);
+        }
+        .quiz-option.correct {
+            background: rgba(0, 245, 212, 0.2);
+            border-color: #00f5d4;
+        }
+        .light .quiz-option.correct {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.incorrect {
+            background: rgba(222, 55, 48, 0.2);
+            border-color: #de3730;
+        }
+        .light .quiz-option.incorrect {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+        .quiz-option:disabled { opacity: 0.6; cursor: not-allowed; }
+    </style>
 </head>
-<body>
-  <div style="display:flex; justify-content:space-between; align-items:center;">
-    <h1>The Vision: Dr. Fei-Fei Li</h1>
-    <button onclick="toggleTheme()">Toggle Light/Dark</button>
-  </div>
-  <hr style="border-color: #e2e8f0; margin: 20px 0;" />
-  <p><strong>"There’s nothing artificial about AI. It’s inspired by people, it’s created by people, and—most importantly—it impacts people."</strong></p>
-  <p>Dr. Fei-Fei Li is a computer scientist at Stanford University. She is the inventor of ImageNet, the dataset that enabled the deep learning revolution.</p>
-  <p>Her vision emphasizes "Human-Centered AI", ensuring that as these technologies develop, they remain aligned with human values and dignity.</p>
+<body class="antialiased font-['Poppins'] bg-white text-gray-800 dark:bg-[#0d0c22] dark:text-gray-100 transition-colors duration-500">
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+        } else {
+            document.documentElement.classList.add('light');
+            document.documentElement.classList.remove('dark');
+        }
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'dk-bg': '#0d0c22',
+                        'dk-surface': '#1a1a2e',
+                        'dk-accent': '#00f5d4',
+                        'dk-accent-2': '#9d4edd',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <div class="min-h-screen">
+        <header class="relative p-6 lg:p-8 overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-pink-100 to-purple-100 dark:from-dk-bg dark:via-dk-surface dark:to-dk-accent-2/30 animated-gradient"></div>
+            <div class="container mx-auto relative z-10">
+                <nav class="flex justify-between items-center">
+                    <h1 class="text-2xl md:text-3xl font-bold text-red-900 dark:text-dk-accent">AI GODMOTHER</h1>
+                    <button id="theme-toggle" class="p-2 rounded-full text-red-900 dark:text-dk-accent hover:bg-black/10 dark:hover:bg-white/10 transition-all duration-300">
+                        <svg id="theme-toggle-dark-icon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                        <svg id="theme-toggle-light-icon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </button>
+                </nav>
+                <div class="mt-16 mb-8 text-center">
+                    <h2 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-red-900 dark:text-white uppercase tracking-tighter">
+                        Meet <span class="bg-clip-text text-transparent bg-gradient-to-r from-red-900 to-purple-900 dark:from-dk-accent dark:to-dk-accent-2">Dr. Fei-Fei Li</span>
+                    </h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-700 dark:text-gray-300">The "Godmother of AI" and her vision for a human-centered future</p>
+                    <a href="https://youtu.be/E2yzX6Gch40?si=ifkx1MRKiMdArusj" target="_blank" rel="noopener noreferrer" class="mt-8 inline-block bg-red-900 dark:bg-dk-accent text-white dark:text-dk-bg font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                        Watch Her Story
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <main class="container mx-auto px-4 py-12 md:py-16">
+            <section>
+                <h3 class="text-3xl md:text-4xl font-bold text-center mb-10 text-red-900 dark:text-white">Who is Dr. Fei-Fei Li?</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 p-6 rounded-2xl glass-card transition-transform duration-300 hover:-translate-y-1">
+                        <h4 class="text-xl font-bold text-red-900 dark:text-dk-accent">🌍 A Technology That Will Change Everything</h4>
+                        <p class="mt-2 text-gray-700 dark:text-gray-300">Dr. Li calls AI a "civilizational technology" - not because it thinks like us, but because it will affect how everyone lives, works, and plans their future. It's powerful like electricity or the internet, and can be used for good or harm, so we need to be careful and responsible with it.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl glass-card transition-transform duration-300 hover:-translate-y-1">
+                        <h4 class="text-xl font-bold text-red-900 dark:text-dk-accent">⚖️ Everyone Should Have a Say</h4>
+                        <p class="mt-2 text-gray-700 dark:text-gray-300">Right now, a few big tech companies control most AI. Dr. Li believes AI should be accessible to everyone, and that each person has the power to help shape how AI develops.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl glass-card transition-transform duration-300 hover:-translate-y-1">
+                        <h4 class="text-xl font-bold text-red-900 dark:text-dk-accent">🎯 Spatial Intelligence</h4>
+                        <p class="mt-2 text-gray-700 dark:text-gray-300">Her company, World Labs, is working on "spatial intelligence" - teaching AI to understand and work with 3D spaces, like understanding rooms and physical objects. This is the next big step beyond just text and images!</p>
+                    </div>
+                    <div class="lg:col-span-2 p-6 rounded-2xl glass-card transition-transform duration-300 hover:-translate-y-1">
+                        <h4 class="text-xl font-bold text-red-900 dark:text-dk-accent">📸 ImageNet: The Game Changer</h4>
+                        <p class="mt-2 text-gray-700 dark:text-gray-300">Dr. Li created ImageNet - a huge collection of 15 million labeled photos. Before this, AI could barely recognize objects. ImageNet gave AI enough examples to learn from, starting the deep learning revolution. It's like how you learn better from many examples than just one!</p>
+                    </div>
+                    <div class="p-6 rounded-2xl glass-card transition-transform duration-300 hover:-translate-y-1">
+                        <h4 class="text-xl font-bold text-red-900 dark:text-dk-accent">💪 The Power of Not Giving Up</h4>
+                        <p class="mt-2 text-gray-700 dark:text-gray-300">Dr. Li immigrated to the US and worked at her family's dry cleaning business through college. This taught her resilience - the ability to keep going when things are hard. She says this is super important for science and life!</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mt-20">
+                <h3 class="text-3xl md:text-4xl font-bold text-center mb-10 text-red-900 dark:text-white">Big Questions About AI's Future</h3>
+                <div id="accordion-container" class="max-w-4xl mx-auto space-y-4"></div>
+            </section>
+
+            <section class="mt-20">
+                <h3 class="text-3xl md:text-4xl font-bold text-center mb-10 text-red-900 dark:text-white">What You Should Remember</h3>
+                <div class="max-w-4xl mx-auto p-6 md:p-8 rounded-2xl glass-card">
+                    <ul class="space-y-4">
+                        <li class="flex items-start"><span class="text-red-900 dark:text-dk-accent mr-3 mt-1 text-xl">✓</span><span><strong>Put Humans First:</strong> AI should help people, not replace them. We should stay in control and use AI as a tool.</span></li>
+                        <li class="flex items-start"><span class="text-red-900 dark:text-dk-accent mr-3 mt-1 text-xl">✓</span><span><strong>Big Data Matters:</strong> ImageNet showed that AI learns better with lots of examples - just like you!</span></li>
+                        <li class="flex items-start"><span class="text-red-900 dark:text-dk-accent mr-3 mt-1 text-xl">✓</span><span><strong>AI Affects Society:</strong> Jobs will change, energy use is a concern, and we need to think carefully about how to use AI ethically.</span></li>
+                        <li class="flex items-start"><span class="text-red-900 dark:text-dk-accent mr-3 mt-1 text-xl">✓</span><span><strong>Learn to Think Critically:</strong> The most important skill for your future is thinking for yourself and questioning how to use AI responsibly.</span></li>
+                        <li class="flex items-start"><span class="text-red-900 dark:text-dk-accent mr-3 mt-1 text-xl">✓</span><span><strong>Dr. Li's Advice:</strong> "Don't do stupid things with your tools." Use AI to ask better questions and learn more, not to cheat or be lazy!</span></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="mt-20">
+                <h3 class="text-3xl md:text-4xl font-bold text-center mb-10 text-red-900 dark:text-white">Test Your Knowledge</h3>
+                <div id="quiz-container" class="max-w-4xl mx-auto space-y-8"></div>
+                <div id="quiz-results" class="mt-8 text-center max-w-4xl mx-auto hidden">
+                    <div class="p-8 rounded-2xl glass-card">
+                        <h4 class="text-2xl font-bold text-red-900 dark:text-dk-accent">Quiz Complete!</h4>
+                        <p class="mt-2 text-xl">Your Score: <span id="quiz-score" class="font-bold"></span></p>
+                        <p id="quiz-feedback" class="mt-4 text-lg"></p>
+                        <button id="quiz-retry-btn" class="mt-6 bg-red-900 dark:bg-dk-accent text-white dark:text-dk-bg font-bold py-2 px-6 rounded-full hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+                            Try Again
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center py-8 mt-16 border-t border-gray-200 dark:border-dk-surface">
+            <p class="text-gray-600 dark:text-gray-400">Learn more about the future of AI</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const darkIcon = document.getElementById('theme-toggle-dark-icon');
+            const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+            const updateIcon = () => {
+                if (document.documentElement.classList.contains('dark')) {
+                    lightIcon.classList.remove('hidden');
+                    darkIcon.classList.add('hidden');
+                } else {
+                    lightIcon.classList.add('hidden');
+                    darkIcon.classList.remove('hidden');
+                }
+            };
+
+            themeToggleBtn.addEventListener('click', () => {
+                document.documentElement.classList.toggle('dark');
+                document.documentElement.classList.toggle('light');
+                localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+                updateIcon();
+            });
+            updateIcon();
+
+            const accordionData = [
+                { title: 'Will AI Take Jobs?', content: 'AI will change many jobs, especially in customer support, programming, and data analysis. Dr. Li says companies and society need to help people learn new skills for the changing job market. The key is adapting and learning!' },
+                { title: 'Will AI Become Too Powerful?', content: 'Dr. Li says we should develop AI responsibly, but not panic about extreme doomsday scenarios. AI is too new for strict international laws yet, but everyone should stay aware and informed about how it develops.' },
+                { title: 'Does AI Use Too Much Energy?', content: 'Yes! AI models use huge amounts of electricity, which is bad for the environment. But Dr. Li sees this as an opportunity - it pushes us to invest more in renewable energy like solar and wind power!' },
+                { title: 'How Should Parents Prepare Kids?', content: 'Dr. Li says parents should teach timeless values: thinking for yourself, being honest, being creative, and treating others with dignity. These human skills will always be important, even in an AI world!' },
+                { title: 'How Should We Talk About AI?', content: 'Dr. Li worries that people talk about AI in too simple, black-and-white terms. She thinks teachers need better tools to help students understand AI and use it responsibly, not just fear it or misuse it.' }
+            ];
+
+            const accordionContainer = document.getElementById('accordion-container');
+            accordionData.forEach((item) => {
+                const accordionItem = document.createElement('div');
+                accordionItem.className = 'border border-gray-300 dark:border-dk-surface rounded-lg overflow-hidden';
+                accordionItem.innerHTML = \`
+                    <button class="w-full text-left p-4 flex justify-between items-center bg-white dark:bg-dk-surface hover:bg-gray-50 dark:hover:bg-dk-surface/80 transition-colors">
+                        <span class="font-bold text-red-900 dark:text-white">\${item.title}</span>
+                        <svg class="w-5 h-5 transform transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                        <div class="p-4 text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-dk-surface/50">\${item.content}</div>
+                    </div>
+                \`;
+                accordionContainer.appendChild(accordionItem);
+
+                const button = accordionItem.querySelector('button');
+                const content = accordionItem.querySelector('div');
+                const icon = accordionItem.querySelector('svg');
+
+                button.addEventListener('click', () => {
+                    const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+                    if (isOpen) {
+                        content.style.maxHeight = '0px';
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+
+            const quizData = [
+                { question: "Why does Dr. Fei-Fei Li call AI a 'civilizational technology'?", answers: ["Because AI can think like humans", "Because it will affect how everyone lives and works", "Because it can solve all our problems", "Because it's only used in science"], correctAnswer: 1 },
+                { question: "What is 'spatial intelligence'?", answers: ["AI that writes poems", "AI that understands 3D spaces and physical objects", "Intelligence of astronauts", "A type of human memory"], correctAnswer: 1 },
+                { question: "What made ImageNet so important?", answers: ["It was the first AI to pass a test", "It was a small, perfect dataset", "It gave AI millions of examples to learn from", "It was a computer virus"], correctAnswer: 2 },
+                { question: "What personal quality does Dr. Li say helped her succeed in science?", answers: ["Being competitive", "Resilience (not giving up)", "Being naturally smart", "Being skeptical"], correctAnswer: 1 },
+                { question: "What's Dr. Li's main advice for students in the age of AI?", answers: ["Avoid all AI technology", "Learn to think critically and use AI responsibly", "Only learn coding", "Let AI do all your homework"], correctAnswer: 1 },
+                { question: "How does Dr. Li view AI's high energy use?", answers: ["It will stop AI progress", "It's not a real problem", "It's a chance to invest in renewable energy", "Only governments can fix it"], correctAnswer: 2 },
+            ];
+
+            const quizContainer = document.getElementById('quiz-container');
+            const quizResultsContainer = document.getElementById('quiz-results');
+            const quizScoreEl = document.getElementById('quiz-score');
+            const quizFeedbackEl = document.getElementById('quiz-feedback');
+            const quizRetryBtn = document.getElementById('quiz-retry-btn');
+            let score = 0;
+            let questionsAnswered = 0;
+
+            const renderQuiz = () => {
+                score = 0;
+                questionsAnswered = 0;
+                quizContainer.innerHTML = '';
+                quizResultsContainer.classList.add('hidden');
+
+                quizData.forEach((q, index) => {
+                    const questionEl = document.createElement('div');
+                    questionEl.className = 'p-6 rounded-2xl glass-card';
+                    questionEl.innerHTML = \`
+                        <p class="font-bold text-lg text-red-900 dark:text-white mb-4">\${index + 1}. \${q.question}</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3" data-question-index="\${index}">
+                            \${q.answers.map((answer, i) => \`
+                                <button class="quiz-option text-left p-3 border-2 border-gray-300 dark:border-dk-surface rounded-lg hover:border-red-900 dark:hover:border-dk-accent transition-all duration-300" data-answer-index="\${i}">
+                                    <span class="font-bold mr-2">\${String.fromCharCode(65 + i)}.</span> \${answer}
+                                </button>
+                            \`).join('')}
+                        </div>
+                    \`;
+                    quizContainer.appendChild(questionEl);
+                });
+
+                document.querySelectorAll('.quiz-option').forEach(btn => {
+                    btn.addEventListener('click', handleAnswer);
+                });
+            };
+
+            const handleAnswer = (event) => {
+                const selectedBtn = event.currentTarget;
+                const parentDiv = selectedBtn.parentElement;
+                const questionIndex = parseInt(parentDiv.dataset.questionIndex);
+                const selectedAnswer = parseInt(selectedBtn.dataset.answerIndex);
+                const correctAnswer = quizData[questionIndex].correctAnswer;
+
+                parentDiv.querySelectorAll('.quiz-option').forEach(btn => {
+                    btn.disabled = true;
+                    if(parseInt(btn.dataset.answerIndex) === correctAnswer) {
+                        btn.classList.add('correct');
+                    }
+                });
+
+                if (selectedAnswer === correctAnswer) {
+                    score++;
+                } else {
+                    selectedBtn.classList.add('incorrect');
+                }
+
+                questionsAnswered++;
+                if (questionsAnswered === quizData.length) {
+                    setTimeout(showResults, 500);
+                }
+            };
+
+            const showResults = () => {
+                quizScoreEl.textContent = \`\${score} / \${quizData.length}\`;
+                const percentage = (score / quizData.length) * 100;
+                let feedback = "Good try! Keep learning about AI.";
+                if (percentage === 100) feedback = "Perfect! You really understand Dr. Li's vision!";
+                else if (percentage >= 75) feedback = "Excellent work! You've learned a lot!";
+                else if (percentage >= 50) feedback = "Good job! You're getting the hang of it.";
+                quizFeedbackEl.textContent = feedback;
+                quizResultsContainer.classList.remove('hidden');
+                quizResultsContainer.scrollIntoView({ behavior: 'smooth' });
+            };
+
+            quizRetryBtn.addEventListener('click', renderQuiz);
+            renderQuiz();
+        });
+    </script>
 </body>
 </html>
 `;
