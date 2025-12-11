@@ -9,12 +9,16 @@ interface SlideFrameProps {
 const SlideFrame: React.FC<SlideFrameProps> = ({ data }) => {
   // Define standard permissions required for most modern web apps in iframes
   const defaultPermissions = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-  
+
   // If specific permissions are requested (e.g., camera), append them to defaults rather than replacing
   // to ensure base functionality (like autoplay) remains intact.
-  const allowAttribute = data.permissions 
-    ? `${defaultPermissions}; ${data.permissions}` 
+  const allowAttribute = data.permissions
+    ? `${defaultPermissions}; ${data.permissions}`
     : defaultPermissions;
+
+  // Check if this slide should show a QR code
+  const showQRCode = data.id === 2;
+  const qrCodeLink = data.source || "https://brain-potential.vercel.app/";
 
   return (
     <div className="w-full h-full bg-slate-950 flex flex-col items-center justify-center relative overflow-hidden">
@@ -51,6 +55,26 @@ const SlideFrame: React.FC<SlideFrameProps> = ({ data }) => {
         loading="lazy"
         sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
       />
+
+      {/* QR Code Overlay - Only for Module 2 */}
+      {showQRCode && (
+        <a
+          href={qrCodeLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute bottom-8 right-8 bg-white p-4 rounded-2xl shadow-2xl hover:scale-105 transition-transform duration-300 z-20 group"
+          title="Scan to visit Brain Potential"
+        >
+          <img
+            src="/image/qr-code.svg"
+            alt="QR Code to Brain Potential"
+            className="w-32 h-32 md:w-40 md:h-40"
+          />
+          <div className="mt-2 text-center text-xs font-semibold text-gray-700 opacity-0 group-hover:opacity-100 transition-opacity">
+            Click to Visit
+          </div>
+        </a>
+      )}
     </div>
   );
 };
