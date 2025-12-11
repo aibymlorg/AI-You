@@ -665,7 +665,7 @@ export const SLIDES: SlideData[] = [
     title: "Gamification: Brain Potential",
     type: SlideType.IMAGE_LAUNCHER,
     source: "https://brain-potential.vercel.app/",
-    centerImage: "/image/Brain_vs_AI-1024.svg",
+    centerImage: "/image/Brain_vs_AI-1024.jpeg",
   },
   {
     id: 3,
