@@ -1,10 +1,23 @@
 import React from 'react';
 import { MousePointer2 } from 'lucide-react';
 
-const TutorialSection: React.FC = () => {
+interface TutorialSectionProps {
+  title?: string;
+  subtitle?: string;
+}
+
+const TutorialSection: React.FC<TutorialSectionProps> = ({ title, subtitle }) => {
   return (
     <div className="max-w-6xl mx-auto px-4 py-16">
-      <h1 className="text-4xl md:text-5xl font-bold text-center mb-20 text-gray-900">A Teachable Machine is a Simple AI</h1>
+      <h1 className="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-900">
+        {title || "A Teachable Machine is a Simple AI"}
+      </h1>
+      {subtitle && (
+        <p className="text-xl md:text-2xl text-center text-gray-600 mb-20">
+          {subtitle}
+        </p>
+      )}
+      {!subtitle && <div className="mb-20" />}
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
 

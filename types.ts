@@ -9,6 +9,7 @@ export enum SlideType {
 export interface SlideData {
   id: number;
   title: string;
+  subtitle?: string; // Optional subtitle for slides
   type: SlideType;
   source?: string; // URL for iframe or launcher link
   srcDoc?: string; // HTML content for local simulation

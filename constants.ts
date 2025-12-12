@@ -655,7 +655,8 @@ const feiFeiHtml = `
 export const SLIDES: SlideData[] = [
   {
     id: 1,
-    title: "The Beginning of AI: Interactive Demo of Machine Learning",
+    title: "Modern AI Starts with Teachable Machine",
+    subtitle: "Experience how machine can learn like human",
     type: SlideType.TEACHABLE_MACHINE,
   },
   {
