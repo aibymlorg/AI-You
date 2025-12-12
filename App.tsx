@@ -7,6 +7,7 @@ import Navigation from './components/Navigation';
 import SlideFrame from './components/SlideFrame';
 import FallbackSlide from './components/FallbackSlide';
 import ImageLauncherSlide from './components/ImageLauncherSlide';
+import TeachableMachineSlide from './components/TeachableMachineSlide';
 
 function App() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
@@ -94,6 +95,8 @@ function App() {
 
   const renderSlideContent = () => {
     switch (currentSlide.type) {
+      case SlideType.TEACHABLE_MACHINE:
+        return <TeachableMachineSlide data={currentSlide} />;
       case SlideType.IMAGE_LAUNCHER:
         return <ImageLauncherSlide data={currentSlide} />;
       case SlideType.IFRAME:

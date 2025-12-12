@@ -656,9 +656,7 @@ export const SLIDES: SlideData[] = [
   {
     id: 1,
     title: "The Beginning of AI: Interactive Demo of Machine Learning",
-    type: SlideType.IMAGE_LAUNCHER,
-    source: "https://teachablemachine.withgoogle.com/train",
-    backgroundImage: "https://www.gstatic.com/tez_creatives/teachable_machine/assets/social/tm_social_share_card.png", // Using the official social card which closely resembles the "How to use" flow
+    type: SlideType.TEACHABLE_MACHINE,
   },
   {
     id: 2,
