@@ -30,7 +30,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStartMission }) => {
         </h1>
 
         <p className="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
-          Join the gamified experience that takes you from basic machine learning to the ethics of AGI. Powered by the world's most advanced models.
+          Join the gamified experience that takes you from basic machine learning, to ChatGPT, to the ethics of AGI. Understand the 'AI'.
         </p>
 
         <div className="flex flex-col md:flex-row justify-center gap-4">
