@@ -21,10 +21,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStartMission }) => {
           For Grade 10 Innovators
         </span>
 
-        <h1 className="text-6xl md:text-8xl font-bold leading-tight mb-6 font-['Space_Grotesk']">
-          Don't just watch the future. <br />
+        <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6 font-['Space_Grotesk']">
+          Don't just wait controlled by the AI. <br />
           <span className="bg-gradient-to-r from-purple-500 via-pink-500 to-purple-600 bg-clip-text text-transparent">
-            Program it.
+            Manage it.
           </span>
         </h1>
 
