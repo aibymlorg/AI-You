@@ -22,7 +22,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStartMission }) => {
         </span>
 
         <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6 font-['Space_Grotesk']">
-          Don't just wait controlled by the AI. <br />
+          Wait controlled by the AI. <br />
+          <span className="text-slate-500 text-4xl md:text-6xl my-2 block">OR</span>
           <span className="bg-gradient-to-r from-purple-500 via-pink-500 to-purple-600 bg-clip-text text-transparent">
             Manage it.
           </span>
