@@ -8,8 +8,10 @@ import SlideFrame from './components/SlideFrame';
 import FallbackSlide from './components/FallbackSlide';
 import ImageLauncherSlide from './components/ImageLauncherSlide';
 import TeachableMachineSlide from './components/TeachableMachineSlide';
+import LandingPage from './components/LandingPage';
 
 function App() {
+  const [showLanding, setShowLanding] = useState(true);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [direction, setDirection] = useState(0); // -1 for prev, 1 for next
 
@@ -107,9 +109,13 @@ function App() {
     }
   };
 
+  if (showLanding) {
+    return <LandingPage onStartMission={() => setShowLanding(false)} />;
+  }
+
   return (
     <div className="w-screen h-screen bg-black overflow-hidden relative">
-      
+
       {/* Main Content Area */}
       {/* mode="popLayout" allows simultaneous exit/enter for fluid push effect */}
       <AnimatePresence initial={false} custom={direction} mode="popLayout">
@@ -132,7 +138,7 @@ function App() {
         totalSlides={totalSlides}
         onNext={nextSlide}
         onPrev={prevSlide}
-        onHome={goToHome}
+        onHome={() => setShowLanding(true)}
         slideTitle={currentSlide.title}
       />
     </div>
