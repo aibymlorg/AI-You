@@ -47,9 +47,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStartMission }) => {
         {/* Tech Stack Badge */}
         <div className="mt-12 text-sm text-slate-500 font-medium">
           <p className="mb-3 uppercase tracking-widest text-xs">Engineered With</p>
-          <div className="flex justify-center gap-6 items-center grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition duration-500">
+          <div className="flex justify-center gap-4 items-center grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition duration-500 flex-wrap">
             <span className="flex items-center gap-2"><div className="w-2 h-2 bg-blue-400 rounded-full"></div> Gemini</span>
-            <span className="flex items-center gap-2"><div className="w-2 h-2 bg-orange-400 rounded-full"></div> Claude</span>
+            <span className="flex items-center gap-2"><div className="w-2 h-2 bg-green-400 rounded-full"></div> OpenAI</span>
+            <span className="flex items-center gap-2"><div className="w-2 h-2 bg-orange-400 rounded-full"></div> Anthropic</span>
             <span className="flex items-center gap-2 font-bold text-white">AIbyML.com</span>
           </div>
         </div>
@@ -156,10 +157,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStartMission }) => {
       {/* Footer */}
       <footer className="border-t border-slate-800 py-12 text-center text-slate-600 text-sm">
         <p className="mb-4">AI & YOU &copy; 2024. Educational Material for Grade 10.</p>
-        <p className="flex justify-center gap-4">
+        <p className="flex justify-center gap-4 flex-wrap">
           <span>Powered by Gemini</span>
           <span>•</span>
-          <span>Claude</span>
+          <span>OpenAI</span>
+          <span>•</span>
+          <span>Anthropic</span>
           <span>•</span>
           <span className="text-purple-500 font-bold">AIbyML.com</span>
         </p>
