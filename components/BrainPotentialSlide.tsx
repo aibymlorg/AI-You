@@ -1,13 +1,15 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import WelcomeScreen from './brain-potential/WelcomeScreen';
 import GameScreen from './brain-potential/GameScreen';
 import SummaryScreen from './brain-potential/SummaryScreen';
 import FeedbackModal from './brain-potential/FeedbackModal';
-import { CHALLENGES, DIFFICULTY_LEVELS } from '../brain-potential-constants';
+import { DIFFICULTY_LEVELS } from '../brain-potential-constants';
 import type { Challenge, FilterCategory } from './brain-potential/brain-potential-types';
 import { GameState, Target, Difficulty, ChallengeCategory } from './brain-potential/brain-potential-types';
 import { SlideData } from '../types';
 import { useScore } from '../contexts/ScoreContext';
+import { useLanguage } from '../contexts/LanguageContext';
+import { getBrainPotentialChallenges } from '../utils/questionTranslations';
 
 interface BrainPotentialSlideProps {
   data: SlideData;
@@ -15,6 +17,8 @@ interface BrainPotentialSlideProps {
 
 const BrainPotentialSlide: React.FC<BrainPotentialSlideProps> = ({ data }) => {
   const { updateModuleScore } = useScore();
+  const { t } = useLanguage();
+  const CHALLENGES = useMemo(() => getBrainPotentialChallenges(t), [t]);
   const [gameState, setGameState] = useState<GameState>(GameState.Welcome);
   const [score, setScore] = useState(0);
   const [currentChallengeIndex, setCurrentChallengeIndex] = useState(0);

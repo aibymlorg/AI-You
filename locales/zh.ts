@@ -300,7 +300,40 @@ export const zh = {
 
   // Brain Potential Game
   brainPotential: {
-    // Add translations here if needed
+    challenges: [
+      { text: "擁有數十億到數萬億個參數", target: "llm", explanation: "AI模型 - 大型語言模型（LLMs）是由參數（權重和連接）來衡量的。它們可以擁有數十億到超過一萬億個參數。這就是我們衡量它們規模和能力的方式。", category: "fact" },
+      { text: "擁有約860億個神經元", target: "brain", explanation: "你的大腦有大約860億個神經元 - 這些是微小的細胞，它們相互傳遞訊息，幫助你思考、學習和記憶。", category: "fact" },
+      { text: "從大量文本數據中學習", target: "llm", explanation: "AI透過閱讀數百萬本書籍、文章和網站來學習。它在這些文本中找到模式來學習語言的運作方式。", category: "fact" },
+      { text: "透過經驗和與人交談來學習", target: "brain", explanation: "你的大腦從真實世界的經驗中學習 - 觸摸事物、觀察它們以及與人交談。你可以從一兩個例子中快速學習。", category: "fact" },
+      { text: "使用非常少的能量（約20瓦）", target: "brain", explanation: "你的大腦超級節能！它只使用約20瓦的功率 - 與昏暗的燈泡相同 - 即使它做著驚人的事情。", category: "fact" },
+      { text: "使用大量能量，特別是在訓練時", target: "llm", explanation: "訓練AI模型需要使用大量電力的龐大數據中心。運行它們既昂貴又耗電。", category: "fact" },
+      { text: "通常使用Transformer架構建構", target: "llm", explanation: "大多數現代AI模型（如ChatGPT）使用一種稱為「Transformer」的架構。這是一種特殊設計，幫助它們非常好地理解語言模式。", category: "fact" },
+      { text: "擁有平行運作的複雜網絡結構", target: "brain", explanation: "你的大腦就像一個超級複雜的網絡，許多事情同時發生。不同部分以我們仍在發現的方式協同工作。", category: "fact" },
+      { text: "擁有約100到1,000萬億個連接", target: "brain", explanation: "你的大腦擁有的連接（稱為突觸）遠多於AI的參數。這些連接隨著你學習新事物而不斷變化。", category: "fact" },
+      { text: "展現創造力、情感和通用智能", target: "brain", explanation: "人類具有真正的創造力、真實的感受，並能思考許多不同的主題。AI可以模仿這些，但它實際上並不感受或真正理解它們。", category: "fact" },
+      { text: "可以從一兩個例子快速學習", target: "brain", explanation: "你只看一次新動物就能學會它長什麼樣子！AI通常需要數千個例子才能學會同樣的事情。", category: "fact" },
+      { text: "需要大量數據和訓練才能學習", target: "llm", explanation: "AI需要看到數百萬個例子才能學習模式。這就像透過閱讀同一本書數千次來準備考試。", category: "fact" },
+      { text: "自然理解物理世界和社交情境", target: "brain", explanation: "你自動知道如果把杯子推下桌子它會掉下來，或者從某人的面部表情看出他們很難過。AI很難理解這些基本概念。", category: "use_case" },
+      { text: "可以超快速閱讀和理解資訊", target: "llm", explanation: "AI可以在幾秒鐘內閱讀和分析數百萬份文件 - 比任何人類都快得多。這使它非常適合研究。", category: "use_case" },
+      { text: "提出新問題並設定創意方向", target: "brain", explanation: "人類充滿好奇心，會提出新問題，如「如果我們能飛會怎樣？」或「為什麼會發生這種情況？」AI只能回答問題，不能自己提出新問題。", category: "use_case" },
+      { text: "可以快速創造許多不同的想法來啟發人們", target: "llm", explanation: "AI非常擅長腦力激盪！給它一個主題，它可以生成數十個想法、故事構思或設計，幫助你激發創意。", category: "use_case" },
+      { text: "可以在尖峰時刻安全地穿越繁忙街道", target: "brain", explanation: "你的大腦非常擅長結合你所看到、聽到和知道的東西來預測移動的汽車和人。自動駕駛汽車仍在努力解決這個問題。", category: "use_case" },
+      { text: "可以在幾分鐘內分析數千篇醫學研究論文", target: "llm", explanation: "AI可以快速閱讀和比較大量研究，找出人類需要數月才能發現的模式或連接。", category: "use_case" },
+      { text: "可以透過理解他人感受來安慰悲傷的朋友", target: "brain", explanation: "人類可以真正理解和感受他人的同情。我們能察覺微小的面部表情和肢體語言。AI可以假裝同情，但實際上並不感受。", category: "use_case" },
+      { text: "可以同時為數百萬名學生創建個人化學習計劃", target: "llm", explanation: "AI可以分析每個學生的學習方式，並同時為數百萬人創建客製化課程 - 這是任何人類教師都無法做到的。", category: "use_case" },
+      { text: "可以發明全新的音樂類型或藝術風格", target: "brain", explanation: "真正的創造力來自人類的經驗和想像力。雖然AI可以重新混合現有風格，但人類創造真正全新的藝術和音樂形式。", category: "use_case" },
+      { text: "可以即時翻譯兩個人用不同語言進行的對話", target: "llm", explanation: "AI非常擅長語言翻譯，可以即時進行，使說不同語言的人能夠立即理解彼此。", category: "use_case" },
+      { text: "可以思考自己的思考", target: "brain", explanation: "人類可以反思自己的思考和學習方式。我們可以說「我不擅長這個」或「我應該嘗試不同的方法」。AI無法進行這種自我反思。", category: "fact" },
+      { text: "可以透過增加更多硬體來擴展記憶體", target: "llm", explanation: "AI的記憶體可以簡單地透過增加更多電腦存儲或訓練更多數據來增長。你的大腦記憶體有生物學限制。", category: "fact" },
+      { text: "根據情感和個人經驗做決定", target: "brain", explanation: "人類的決定涉及感受、直覺和記憶。這些幫助我們在複雜的社交情境中做出選擇，而沒有明確的「正確」答案。", category: "use_case" },
+      { text: "可以完美回憶訓練中的特定資訊", target: "llm", explanation: "AI可以非常準確地記住訓練數據中的事實，就像數位圖書館。人類記憶更具創造性但不太準確。", category: "use_case" },
+      { text: "在學習時可以物理性地重新佈線自己", target: "brain", explanation: "你的大腦在學習時實際上會改變其物理結構！新的連接形成並增強。AI的結構在訓練後基本保持不變。", category: "fact" },
+      { text: "可以在幾秒鐘內編寫、解釋和除錯電腦程式碼", target: "llm", explanation: "AI非常擅長理解程式語言。它可以編寫程式碼、解釋程式碼的功能，並快速找到錯誤來幫助程式設計師。", category: "use_case" },
+      { text: "透過親身體驗理解「重」、「軟」或「溫暖」等概念", target: "brain", explanation: "你知道「軟」是什麼意思，因為你觸摸過柔軟的東西。AI只知道從閱讀中了解它 - 它實際上無法感受質地。", category: "fact" },
+      { text: "可能會被輸入數據的小巧妙變化愚弄", target: "llm", explanation: "AI可能會被人類甚至不會注意到的微小變化所欺騙。例如，改變幾個像素可以使AI認為貓是狗。", category: "fact" },
+      { text: "可以根據對公司文化的理解制定長期商業計劃", target: "brain", explanation: "策略規劃需要理解人員、動機和文化 - 這些是人類從經驗中學到的。AI可以分析數據，但缺乏人類洞察力。", category: "use_case" },
+      { text: "可以追蹤非常長的對話而不忘記細節", target: "llm", explanation: "現代AI可以記住並引用極長對話中的資訊而不會混淆，不像人類可能會忘記先前的細節。", category: "use_case" }
+    ]
   },
 
   // Leaderboard
