@@ -24,7 +24,7 @@ const TeachableMachineSlide: React.FC<TeachableMachineSlideProps> = ({ data }) =
       <main className="flex-1 flex flex-col">
         {appState === AppState.LANDING ? (
           <div className="animate-in fade-in duration-500">
-            <TutorialSection title={data.title} subtitle={data.subtitle} />
+            <TutorialSection title={t('slides.module1.title')} subtitle={t('slides.module1.subtitle')} />
             <div className="flex justify-center pb-20">
                <button
                   onClick={() => setAppState(AppState.WORKBENCH)}
