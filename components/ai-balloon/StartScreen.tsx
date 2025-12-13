@@ -1,5 +1,4 @@
 import React from 'react';
-import { EDUCATIONAL_CONTENT } from '../../ai-balloon-constants';
 import { useLanguage } from '../../contexts/LanguageContext';
 
 interface StartScreenProps {
@@ -7,7 +6,98 @@ interface StartScreenProps {
 }
 
 const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+
+  // Get educational content from translations based on language
+  const getEducationalContent = () => {
+    if (language === 'zh') {
+      return [
+        {
+          title: '簡介',
+          points: [
+            'AI是旨在模擬人類智能的總體領域。',
+            '關鍵概念：AI > 機器學習（ML）> 深度學習（DL）> 生成式AI（GenAI）。'
+          ]
+        },
+        {
+          title: '人工智慧（AI）',
+          points: [
+            '最廣泛的術語：模擬人類智能（學習、推理、判斷）。',
+            '歷史：幾十年前從「專家系統」（編程規則）開始。'
+          ]
+        },
+        {
+          title: '機器學習（ML）',
+          points: [
+            'AI的子集：機器從數據中學習，無需明確編程。',
+            '機制：分析訓練數據以找到模式。',
+            '關鍵用途：預測、異常檢測（網路安全）。'
+          ]
+        },
+        {
+          title: '深度學習（DL）',
+          points: [
+            'ML的子集：使用模仿大腦的多層神經網絡。',
+            '「深度」指的是多個處理層。',
+            '功能強大，但通常是「黑盒子」（難以解釋推理）。'
+          ]
+        },
+        {
+          title: '生成式AI（GenAI）',
+          points: [
+            '現代AI子集：專注於創造新內容（文本、圖像、音頻）。',
+            '建立在基礎模型上（如大型語言模型LLMs）。',
+            '類比：像作曲新歌，而不只是分析音符。',
+            '影響：大幅加速AI的採用。'
+          ]
+        }
+      ];
+    } else {
+      return [
+        {
+          title: 'Introduction',
+          points: [
+            'AI is the overarching field aiming to simulate human intelligence.',
+            'Key concepts: AI > Machine Learning (ML) > Deep Learning (DL) > Generative AI (GenAI).'
+          ]
+        },
+        {
+          title: 'Artificial Intelligence (AI)',
+          points: [
+            'Broadest term: Simulating human intelligence (learning, inference, reasoning).',
+            "History: Started decades ago with 'Expert Systems' (programmed rules)."
+          ]
+        },
+        {
+          title: 'Machine Learning (ML)',
+          points: [
+            'Subset of AI: Machines learn from data without explicit programming.',
+            'Mechanism: Analyzes training data to find patterns.',
+            'Key Use: Prediction, outlier detection (cybersecurity).'
+          ]
+        },
+        {
+          title: 'Deep Learning (DL)',
+          points: [
+            'Subset of ML: Uses multi-layered neural networks mimicking the brain.',
+            "The 'Deep' refers to the multiple processing layers.",
+            "Powerful but often a 'black box' (hard to explain reasoning)."
+          ]
+        },
+        {
+          title: 'Generative AI (GenAI)',
+          points: [
+            'Modern Subset of AI: Focuses on CREATING NEW content (text, images, audio).',
+            'Built on Foundation Models (like Large Language Models - LLMs).',
+            'Analogy: Like composing a new song rather than just analyzing notes.',
+            'Impact: Massive acceleration in AI adoption.'
+          ]
+        }
+      ];
+    }
+  };
+
+  const educationalContent = getEducationalContent();
 
   return (
     <div className="flex flex-col h-full w-full max-w-4xl mx-auto p-4 md:p-8 bg-white/90 backdrop-blur-md rounded-xl shadow-2xl overflow-hidden relative">
@@ -25,11 +115,11 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
           {t('aiBalloon.missionBriefing')}
         </h2>
         <div className="space-y-6">
-          {EDUCATIONAL_CONTENT.map((section, idx) => (
+          {educationalContent.map((section, idx) => (
             <div key={idx} className="bg-blue-50 p-4 rounded-lg border border-blue-100">
               <h3 className="text-xl font-bold text-blue-800 mb-2">{section.title}</h3>
               <ul className="list-disc list-inside space-y-1 text-gray-700">
-                {section.content.map((point, pIdx) => (
+                {section.points.map((point, pIdx) => (
                   <li key={pIdx} className="leading-relaxed">{point}</li>
                 ))}
               </ul>

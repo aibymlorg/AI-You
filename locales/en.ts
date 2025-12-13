@@ -153,6 +153,49 @@ export const en = {
     finalScore: 'Final Score:',
     victoryMessage: 'You have mastered the concepts of AI!',
     defeatMessage: 'Review the concepts and try again to master AI.',
+
+    // Educational Content
+    content: {
+      intro: {
+        title: 'Introduction',
+        points: [
+          'AI is the overarching field aiming to simulate human intelligence.',
+          'Key concepts: AI > Machine Learning (ML) > Deep Learning (DL) > Generative AI (GenAI).'
+        ]
+      },
+      ai: {
+        title: 'Artificial Intelligence (AI)',
+        points: [
+          'Broadest term: Simulating human intelligence (learning, inference, reasoning).',
+          "History: Started decades ago with 'Expert Systems' (programmed rules)."
+        ]
+      },
+      ml: {
+        title: 'Machine Learning (ML)',
+        points: [
+          'Subset of AI: Machines learn from data without explicit programming.',
+          'Mechanism: Analyzes training data to find patterns.',
+          'Key Use: Prediction, outlier detection (cybersecurity).'
+        ]
+      },
+      dl: {
+        title: 'Deep Learning (DL)',
+        points: [
+          'Subset of ML: Uses multi-layered neural networks mimicking the brain.',
+          "The 'Deep' refers to the multiple processing layers.",
+          "Powerful but often a 'black box' (hard to explain reasoning)."
+        ]
+      },
+      genai: {
+        title: 'Generative AI (GenAI)',
+        points: [
+          'Modern Subset of AI: Focuses on CREATING NEW content (text, images, audio).',
+          'Built on Foundation Models (like Large Language Models - LLMs).',
+          'Analogy: Like composing a new song rather than just analyzing notes.',
+          'Impact: Massive acceleration in AI adoption.'
+        ]
+      }
+    }
   },
 
   // Brain Potential Game

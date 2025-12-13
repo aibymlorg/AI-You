@@ -49,7 +49,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStartMission }) => {
   };
 
   return (
-    <div className="bg-slate-950 text-slate-100 antialiased overflow-x-hidden w-full h-full overflow-y-auto">
+    <div className="bg-slate-950 text-slate-100 antialiased overflow-x-hidden w-full min-h-screen overflow-y-auto">
       {/* Navbar */}
       <nav className="w-full py-6 px-8 flex justify-between items-center max-w-7xl mx-auto">
         <div className="text-2xl font-bold font-['Space_Grotesk'] tracking-tighter">AI & YOU</div>
