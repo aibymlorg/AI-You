@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { MachineClass, TrainingState } from '../../teachable-machine-types';
 import ClassCard from './ClassCard';
 import { Plus, Loader2, RefreshCw } from 'lucide-react';
-import { trainClassDescription, classifyImage } from '../../services/geminiService';
+import { trainClassDescription, classifyImage } from '../../services/tensorflowService';
 
 const MachineWorkbench: React.FC = () => {
   const [classes, setClasses] = useState<MachineClass[]>([
@@ -85,26 +85,45 @@ const MachineWorkbench: React.FC = () => {
     let interval: number;
 
     const runInference = async () => {
-      if (!previewVideoRef.current || !previewCanvasRef.current) return;
+      if (!previewVideoRef.current || !previewCanvasRef.current) {
+        console.log('⚠️ Video or canvas ref not ready');
+        return;
+      }
       if (trainingState !== TrainingState.READY || !isInferring) return;
 
       const ctx = previewCanvasRef.current.getContext('2d');
       if (ctx) {
+        // Check if video is ready
+        if (previewVideoRef.current.readyState < 2) {
+          console.log('⚠️ Video not ready yet, readyState:', previewVideoRef.current.readyState);
+          return;
+        }
+
         // Draw from the video element which is playing the global stream
         ctx.drawImage(previewVideoRef.current, 0, 0, 224, 224);
         const currentFrame = previewCanvasRef.current.toDataURL('image/jpeg');
-        
+
         const result = await classifyImage(currentFrame, classes);
         setPrediction(result);
       }
     };
 
     if (isInferring && trainingState === TrainingState.READY) {
+      console.log('🎥 Starting inference loop...');
+      console.log('📹 Global stream:', globalStream);
+      console.log('📹 Video element:', previewVideoRef.current);
       // Run inference loop
       interval = window.setInterval(runInference, 1500);
+      // Run first inference immediately
+      runInference();
     }
 
-    return () => clearInterval(interval);
+    return () => {
+      if (interval) {
+        console.log('🛑 Stopping inference loop');
+        clearInterval(interval);
+      }
+    };
   }, [isInferring, trainingState, classes]);
 
 
@@ -149,8 +168,8 @@ const MachineWorkbench: React.FC = () => {
                {trainingState === TrainingState.TRAINING && (
                  <div className="flex flex-col items-center gap-2">
                    <Loader2 className="w-8 h-8 text-[#1a73e8] animate-spin" />
-                   <span className="text-sm text-gray-600 font-medium">Analyzing samples...</span>
-                   <span className="text-xs text-gray-400">Processing with Gemini</span>
+                   <span className="text-sm text-gray-600 font-medium">Training model...</span>
+                   <span className="text-xs text-gray-400">Using TensorFlow.js + MobileNet</span>
                  </div>
                )}
 

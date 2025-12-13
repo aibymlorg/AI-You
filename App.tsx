@@ -8,6 +8,12 @@ import SlideFrame from './components/SlideFrame';
 import FallbackSlide from './components/FallbackSlide';
 import ImageLauncherSlide from './components/ImageLauncherSlide';
 import TeachableMachineSlide from './components/TeachableMachineSlide';
+import BrainPotentialSlide from './components/BrainPotentialSlide';
+import AITerminologySlide from './components/AITerminologySlide';
+import FutureOfAISlide from './components/FutureOfAISlide';
+import GeneratedAISlide from './components/GeneratedAISlide';
+import AILimitsSlide from './components/AILimitsSlide';
+import AIBalloonSlide from './components/AIBalloonSlide';
 import LandingPage from './components/LandingPage';
 
 function App() {
@@ -99,6 +105,18 @@ function App() {
     switch (currentSlide.type) {
       case SlideType.TEACHABLE_MACHINE:
         return <TeachableMachineSlide data={currentSlide} />;
+      case SlideType.BRAIN_POTENTIAL:
+        return <BrainPotentialSlide data={currentSlide} />;
+      case SlideType.AI_TERMINOLOGY:
+        return <AITerminologySlide data={currentSlide} />;
+      case SlideType.FUTURE_OF_AI:
+        return <FutureOfAISlide data={currentSlide} />;
+      case SlideType.GENERATED_AI:
+        return <GeneratedAISlide data={currentSlide} />;
+      case SlideType.AI_LIMITS:
+        return <AILimitsSlide data={currentSlide} />;
+      case SlideType.AI_BALLOON:
+        return <AIBalloonSlide data={currentSlide} />;
       case SlideType.IMAGE_LAUNCHER:
         return <ImageLauncherSlide data={currentSlide} />;
       case SlideType.IFRAME:

@@ -37,8 +37,8 @@ const FallbackSlide: React.FC<FallbackSlideProps> = ({ data }) => {
             <ExternalLink className="w-5 h-5" />
           </a>
           
-          <p className="mt-6 text-xs text-slate-500">
-            *This content blocks external embedding. Please open in a new tab to view.
+          <p className="mt-6 text-base text-slate-300 font-medium">
+            Please note that you can prompt to change the app in building-block as you wish
           </p>
         </div>
 

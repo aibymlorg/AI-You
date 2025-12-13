@@ -661,34 +661,50 @@ export const SLIDES: SlideData[] = [
   },
   {
     id: 2,
-    title: "Gamification: Brain Potential",
-    type: SlideType.IMAGE_LAUNCHER,
-    source: "https://brain-potential.vercel.app/",
-    centerImage: "/image/Brain_vs_AI-1024.jpeg",
+    title: "AI Balloon Saver: Master AI Concepts",
+    subtitle: "Catch the correct answers before they hit the ground",
+    type: SlideType.AI_BALLOON,
   },
   {
     id: 3,
-    title: "The Logic: Future AI Report",
-    type: SlideType.IFRAME,
-    // In production, use: source: "/reports/future-ai.html",
-    srcDoc: futureAiHtml,
+    title: "Generated AI: Dr. Fei-Fei Li's Vision",
+    subtitle: "Interactive game exploring AI ethics and future",
+    type: SlideType.GENERATED_AI,
   },
   {
     id: 4,
-    title: "The Vision: Dr. Fei-Fei Li",
-    type: SlideType.IFRAME,
-    // In production, use: source: "/reports/fei-fei-li.html",
-    srcDoc: feiFeiHtml,
+    title: "Brain vs AI: The Ultimate Challenge",
+    subtitle: "Can you tell the difference between human and artificial intelligence?",
+    type: SlideType.BRAIN_POTENTIAL,
   },
   {
     id: 5,
+    title: "NeuroCore: AI Terminology Defense",
+    subtitle: "Master essential AI terms through interactive learning",
+    type: SlideType.AI_TERMINOLOGY,
+  },
+  {
+    id: 6,
+    title: "The Logic: Future AI Report",
+    subtitle: "Explore Foundation Models and Self-Supervised Learning",
+    type: SlideType.FUTURE_OF_AI,
+  },
+  {
+    id: 7,
     title: "The Next Gen: Google Opal",
+    subtitle: "Using AI to develop AI for you, try our Video Making AI",
     type: SlideType.FALLBACK_CARD, // Known X-Frame-Option blocker
     fallbackContent: {
       image: "https://picsum.photos/1200/800", // Placeholder for Opal
-      description: "Meet Opal. A professional webcam with DSLR quality, built for the age of AI video.",
-      link: "https://opal.google/landing/",
+      description: "Meet Opal. Build AI for yourself, see our AI video generator.",
+      link: "https://opal.google/?flow=drive:/1rvjaP5bB4KEu7fvTFpCs_tsUxNBi3oOi&shared&mode=app",
       buttonText: "Explore Opal"
     }
+  },
+  {
+    id: 8,
+    title: "Target Protocol: The Limits of AI",
+    subtitle: "Using AI to develop AI for you, try our Video Making AI",
+    type: SlideType.AI_LIMITS,
   }
 ];

@@ -370,7 +370,77 @@ When creating or updating components, ensure they follow these principles:
 
 ---
 
-## 10. 🔮 Future Enhancements
+## 10. 🧠 Machine Learning Implementation
+
+### Philosophy:
+Mission 1 ("Modern AI Starts with Teachable Machine") uses **real machine learning** that runs entirely in the browser. This provides an authentic, educational experience that demonstrates how AI actually learns.
+
+### Technology Stack:
+
+**TensorFlow.js** - Machine learning in the browser
+```bash
+npm install @tensorflow/tfjs @tensorflow-models/mobilenet @tensorflow-models/knn-classifier
+```
+
+**MobileNet** - Pre-trained image classification model used as a feature extractor
+- Trained on ImageNet dataset
+- Provides 1000-dimensional feature vectors
+- Runs efficiently in the browser
+
+**KNN Classifier** - K-Nearest Neighbors algorithm for transfer learning
+- Classifies based on similarity to training examples
+- Fast training and inference
+- Perfect for educational demonstrations
+
+### How It Works:
+
+1. **Feature Extraction**: MobileNet converts images into 1000-dimensional feature vectors
+2. **Training**: User provides examples for each class → features are stored in KNN classifier
+3. **Inference**: New images are classified by comparing their features to stored examples
+4. **Transfer Learning**: Reusing MobileNet's knowledge to classify custom categories
+
+### Implementation:
+
+**Service Layer** (`services/tensorflowService.ts`):
+```typescript
+// Initialize models (runs once)
+const mobilenetModel = await mobilenet.load({ version: 2, alpha: 1.0 });
+const classifier = knnClassifier.create();
+
+// Training: Extract features and add to classifier
+const activation = mobilenetModel.infer(img, 'conv_preds');
+classifier.addExample(activation, className);
+
+// Inference: Classify new images
+const result = await classifier.predictClass(activation);
+```
+
+**Component Integration** (`components/teachable-machine/MachineWorkbench.tsx`):
+- Camera capture for live examples
+- Real-time inference loop (every 1.5 seconds)
+- Visual feedback with confidence bars
+- State management for training/inference modes
+
+### Benefits:
+
+✅ **No API Calls**: Everything runs locally in the browser
+✅ **Fast**: Real-time inference without network latency
+✅ **Private**: Images never leave the user's device
+✅ **Educational**: Shows real ML concepts (transfer learning, feature extraction)
+✅ **Offline**: Works without internet connection after initial model load
+✅ **Authentic**: Matches the experience of Google's Teachable Machine
+
+### User Experience:
+
+1. User adds image samples for each class (e.g., "Class 1", "Class 2")
+2. Click "Train Model" → MobileNet processes all samples
+3. Toggle inference ON → Real-time camera classification
+4. Visual confidence bars show prediction results
+5. Model trained entirely in the browser (no server needed)
+
+---
+
+## 11. 🔮 Future Enhancements
 
 ### Planned Features:
 1. **User Profiles**: Avatar, username, stats

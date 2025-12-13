@@ -1,0 +1,8 @@
+{
+  "name": "Teachable Machine Gemini",
+  "description": "A replica of Teachable Machine using Google Gemini for few-shot image classification and training.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

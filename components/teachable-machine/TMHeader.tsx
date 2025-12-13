@@ -20,8 +20,8 @@ const TMHeader: React.FC<HeaderProps> = ({ onGetStarted, isStarted }) => {
 
       <div className="flex items-center gap-8">
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
-          <a href="#" className="hover:text-[#1a73e8]">About</a>
-          <a href="#" className="hover:text-[#1a73e8]">FAQ</a>
+          <a href="/reference/teachable_machine_about.html" target="_blank" rel="noopener noreferrer" className="hover:text-[#1a73e8]">About</a>
+          <a href="https://teachablemachine.withgoogle.com/faq" target="_blank" rel="noopener noreferrer" className="hover:text-[#1a73e8]">FAQ</a>
         </nav>
         {!isStarted && (
           <button

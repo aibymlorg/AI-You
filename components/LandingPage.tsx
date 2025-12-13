@@ -1,17 +1,92 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { getCurrentPlayer, logoutPlayer } from '../services/authServiceSupabase';
+import { Player } from '../player-types';
+import AuthModal from './AuthModal';
+import UnifiedProgressDashboard from './UnifiedProgressDashboard';
+import { LogOut, User, Trophy } from 'lucide-react';
 
 interface LandingPageProps {
   onStartMission: () => void;
 }
 
 const LandingPage: React.FC<LandingPageProps> = ({ onStartMission }) => {
+  const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
+  const [showProgressDashboard, setShowProgressDashboard] = useState(false);
+
+  useEffect(() => {
+    // Check if player is already logged in
+    const player = getCurrentPlayer();
+    setCurrentPlayer(player);
+  }, []);
+
+  const handleAuthSuccess = () => {
+    const player = getCurrentPlayer();
+    setCurrentPlayer(player);
+  };
+
+  const handleLogout = () => {
+    logoutPlayer();
+    setCurrentPlayer(null);
+  };
+
+  const openAuthModal = (mode: 'login' | 'register') => {
+    setAuthMode(mode);
+    setShowAuthModal(true);
+  };
+
   return (
     <div className="bg-slate-950 text-slate-100 antialiased overflow-x-hidden w-full h-full overflow-y-auto">
       {/* Navbar */}
       <nav className="w-full py-6 px-8 flex justify-between items-center max-w-7xl mx-auto">
         <div className="text-2xl font-bold font-['Space_Grotesk'] tracking-tighter">AI & YOU</div>
-        <button className="bg-white text-black px-6 py-2 rounded-full font-bold hover:bg-slate-200 transition">Login</button>
+
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setShowProgressDashboard(true)}
+            className="bg-purple-900/30 border border-purple-500/30 text-purple-300 px-4 py-2 rounded-full font-bold hover:bg-purple-900/50 hover:text-purple-200 transition flex items-center gap-2"
+          >
+            <Trophy size={18} />
+            <span className="hidden md:inline">Progress</span>
+          </button>
+          {currentPlayer ? (
+            <>
+              <div className="flex items-center gap-2 bg-slate-800 px-4 py-2 rounded-full border border-slate-700">
+                <User size={18} className="text-purple-400" />
+                <span className="font-semibold">{currentPlayer.username}</span>
+                <span className="text-xs text-slate-400 ml-2">{currentPlayer.xp} XP</span>
+              </div>
+              <button
+                onClick={handleLogout}
+                className="bg-slate-800 border border-slate-700 text-slate-300 px-4 py-2 rounded-full font-bold hover:bg-slate-700 hover:text-white transition flex items-center gap-2"
+              >
+                <LogOut size={18} />
+                <span className="hidden md:inline">Logout</span>
+              </button>
+            </>
+          ) : (
+            <button
+              onClick={() => openAuthModal('login')}
+              className="bg-white text-black px-6 py-2 rounded-full font-bold hover:bg-slate-200 transition"
+            >
+              Register/Login
+            </button>
+          )}
+        </div>
       </nav>
+
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        onSuccess={handleAuthSuccess}
+        initialMode={authMode}
+      />
+
+      <UnifiedProgressDashboard
+        isOpen={showProgressDashboard}
+        onClose={() => setShowProgressDashboard(false)}
+      />
 
       {/* Hero Section */}
       <header className="relative pt-16 pb-32 px-6 text-center max-w-5xl mx-auto">
@@ -34,12 +109,21 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStartMission }) => {
         </p>
 
         <div className="flex flex-col md:flex-row justify-center gap-4">
-          <button
-            onClick={onStartMission}
-            className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg font-bold text-lg hover:opacity-90 transition shadow-lg shadow-purple-900/50"
-          >
-            Start Your Mission
-          </button>
+          {currentPlayer ? (
+            <button
+              onClick={onStartMission}
+              className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg font-bold text-lg hover:opacity-90 transition shadow-lg shadow-purple-900/50"
+            >
+              Start Your Mission
+            </button>
+          ) : (
+            <button
+              onClick={() => openAuthModal('register')}
+              className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg font-bold text-lg hover:opacity-90 transition shadow-lg shadow-purple-900/50"
+            >
+              Start Your Mission
+            </button>
+          )}
           <button className="px-8 py-4 bg-slate-800 border border-slate-700 rounded-lg font-bold text-lg hover:bg-slate-700 transition">
             View Leaderboard
           </button>
@@ -99,44 +183,44 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStartMission }) => {
           {/* Card 2 */}
           <div className="bg-slate-900 border border-slate-800 p-8 rounded-2xl hover:transform hover:-translate-y-1 hover:shadow-[0_10px_30px_-10px_rgba(168,85,247,0.4)] transition duration-300 relative overflow-hidden group">
             <div className="absolute top-0 right-0 bg-slate-800 text-xs px-3 py-1 rounded-bl-lg text-slate-300 font-mono">MODULE 02</div>
-            <div className="w-12 h-12 bg-blue-900/50 rounded-lg flex items-center justify-center text-2xl mb-6">🌐</div>
-            <h3 className="text-2xl font-bold mb-2 group-hover:text-blue-400 transition font-['Space_Grotesk']">The Current State</h3>
-            <p className="text-slate-400 text-sm mb-4">Deep dive into Generative AI. How do LLMs like Gemini and Claude actually think?</p>
+            <div className="w-12 h-12 bg-cyan-900/50 rounded-lg flex items-center justify-center text-2xl mb-6">✨</div>
+            <h3 className="text-2xl font-bold mb-2 group-hover:text-cyan-400 transition font-['Space_Grotesk']">Dr. Fei-Fei Li's Vision</h3>
+            <p className="text-slate-400 text-sm mb-4">Interactive game exploring ImageNet, Spatial Intelligence, and the future of AI ethics.</p>
             <div className="w-full bg-slate-800 h-1.5 rounded-full mt-auto">
-              <div className="bg-blue-500 h-1.5 rounded-full w-0 group-hover:w-full transition-all duration-1000"></div>
+              <div className="bg-cyan-500 h-1.5 rounded-full w-0 group-hover:w-full transition-all duration-1000"></div>
             </div>
           </div>
 
           {/* Card 3 */}
           <div className="bg-slate-900 border border-slate-800 p-8 rounded-2xl hover:transform hover:-translate-y-1 hover:shadow-[0_10px_30px_-10px_rgba(168,85,247,0.4)] transition duration-300 relative overflow-hidden group">
             <div className="absolute top-0 right-0 bg-slate-800 text-xs px-3 py-1 rounded-bl-lg text-slate-300 font-mono">MODULE 03</div>
-            <div className="w-12 h-12 bg-red-900/50 rounded-lg flex items-center justify-center text-2xl mb-6">🚫</div>
-            <h3 className="text-2xl font-bold mb-2 group-hover:text-red-400 transition font-['Space_Grotesk']">The Limits of AI</h3>
-            <p className="text-slate-400 text-sm mb-4">Explore "Hallucinations." Learn what AI fails at and why human intuition is still king.</p>
+            <div className="w-12 h-12 bg-blue-900/50 rounded-lg flex items-center justify-center text-2xl mb-6">🧩</div>
+            <h3 className="text-2xl font-bold mb-2 group-hover:text-blue-400 transition font-['Space_Grotesk']">Brain vs AI Challenge</h3>
+            <p className="text-slate-400 text-sm mb-4">Can you tell the difference? Test your skills in identifying human vs AI intelligence.</p>
             <div className="w-full bg-slate-800 h-1.5 rounded-full mt-auto">
-              <div className="bg-red-500 h-1.5 rounded-full w-0 group-hover:w-full transition-all duration-1000"></div>
+              <div className="bg-blue-500 h-1.5 rounded-full w-0 group-hover:w-full transition-all duration-1000"></div>
             </div>
           </div>
 
           {/* Card 4 */}
           <div className="bg-slate-900 border border-slate-800 p-8 rounded-2xl hover:transform hover:-translate-y-1 hover:shadow-[0_10px_30px_-10px_rgba(168,85,247,0.4)] transition duration-300 relative overflow-hidden group">
             <div className="absolute top-0 right-0 bg-slate-800 text-xs px-3 py-1 rounded-bl-lg text-slate-300 font-mono">MODULE 04</div>
-            <div className="w-12 h-12 bg-green-900/50 rounded-lg flex items-center justify-center text-2xl mb-6">🚀</div>
-            <h3 className="text-2xl font-bold mb-2 group-hover:text-green-400 transition font-['Space_Grotesk']">The Future of AI</h3>
-            <p className="text-slate-400 text-sm mb-4">AGI, Space Travel, and Medicine. What will the world look like when you graduate?</p>
+            <div className="w-12 h-12 bg-violet-900/50 rounded-lg flex items-center justify-center text-2xl mb-6">🔮</div>
+            <h3 className="text-2xl font-bold mb-2 group-hover:text-violet-400 transition font-['Space_Grotesk']">AI Terminology Defense</h3>
+            <p className="text-slate-400 text-sm mb-4">Master essential AI terms through the NeuroCore system. Learn RAG, Agentic AI, and more.</p>
             <div className="w-full bg-slate-800 h-1.5 rounded-full mt-auto">
-              <div className="bg-green-500 h-1.5 rounded-full w-0 group-hover:w-full transition-all duration-1000"></div>
+              <div className="bg-violet-500 h-1.5 rounded-full w-0 group-hover:w-full transition-all duration-1000"></div>
             </div>
           </div>
 
           {/* Card 5 */}
           <div className="bg-slate-900 border border-slate-800 p-8 rounded-2xl hover:transform hover:-translate-y-1 hover:shadow-[0_10px_30px_-10px_rgba(168,85,247,0.4)] transition duration-300 relative overflow-hidden group">
             <div className="absolute top-0 right-0 bg-slate-800 text-xs px-3 py-1 rounded-bl-lg text-slate-300 font-mono">MODULE 05</div>
-            <div className="w-12 h-12 bg-yellow-900/50 rounded-lg flex items-center justify-center text-2xl mb-6">⚖️</div>
-            <h3 className="text-2xl font-bold mb-2 group-hover:text-yellow-400 transition font-['Space_Grotesk']">The Ethics of AI</h3>
-            <p className="text-slate-400 text-sm mb-4">Deepfakes, Bias, and Power. Navigating the moral dilemmas of the new digital age.</p>
+            <div className="w-12 h-12 bg-red-900/50 rounded-lg flex items-center justify-center text-2xl mb-6">🚀</div>
+            <h3 className="text-2xl font-bold mb-2 group-hover:text-red-400 transition font-['Space_Grotesk']">The Future of AI</h3>
+            <p className="text-slate-400 text-sm mb-4">Foundation Models, Self-Supervised Learning, and AGI. Explore what's next for AI.</p>
             <div className="w-full bg-slate-800 h-1.5 rounded-full mt-auto">
-              <div className="bg-yellow-500 h-1.5 rounded-full w-0 group-hover:w-full transition-all duration-1000"></div>
+              <div className="bg-red-500 h-1.5 rounded-full w-0 group-hover:w-full transition-all duration-1000"></div>
             </div>
           </div>
 
@@ -144,12 +228,21 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStartMission }) => {
           <div className="bg-gradient-to-br from-purple-900 to-indigo-900 p-8 rounded-2xl flex flex-col items-center justify-center text-center">
             <h3 className="text-2xl font-bold mb-2 text-white font-['Space_Grotesk']">Ready to Begin?</h3>
             <p className="text-purple-200 text-sm mb-6">Join your classmates on the leaderboard.</p>
-            <button
-              onClick={onStartMission}
-              className="px-6 py-2 bg-white text-purple-900 font-bold rounded-full hover:bg-purple-100 transition"
-            >
-              Create Account
-            </button>
+            {currentPlayer ? (
+              <button
+                onClick={onStartMission}
+                className="px-6 py-2 bg-white text-purple-900 font-bold rounded-full hover:bg-purple-100 transition"
+              >
+                Continue Mission
+              </button>
+            ) : (
+              <button
+                onClick={() => openAuthModal('register')}
+                className="px-6 py-2 bg-white text-purple-900 font-bold rounded-full hover:bg-purple-100 transition"
+              >
+                Create Account
+              </button>
+            )}
           </div>
 
         </div>

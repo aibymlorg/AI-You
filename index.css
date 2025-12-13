@@ -1,0 +1,117 @@
+/* Brain Potential Game - Custom Styles */
+
+/* Glow effects for drag-and-drop zones */
+.shadow-glow-cyan {
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+}
+
+.shadow-glow-fuchsia {
+  box-shadow: 0 0 20px rgba(217, 70, 239, 0.5);
+}
+
+.shadow-glow-green {
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+}
+
+.shadow-glow-red {
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+}
+
+/* Animated blob for background effects */
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Font display utility */
+.font-display {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* Future of AI - Custom Animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.5s ease-out forwards;
+}
+
+/* Tailwind color overrides for Future of AI module */
+.from-brand-bg {
+  --tw-gradient-from: #2C2523;
+}
+
+.to-secondary-dark {
+  --tw-gradient-to: #513430;
+}
+
+.text-primary-light {
+  color: #fff8f6;
+}
+
+.text-background {
+  color: #ffdad4;
+}
+
+.bg-primary-dark {
+  background-color: #7d0100;
+}
+
+.bg-neutral-dark {
+  background-color: #413a38;
+}
+
+.border-primary-light {
+  border-color: #fff8f6;
+}
+
+.text-secondary-light {
+  color: #ffedea;
+}
+
+.font-outfit {
+  font-family: 'Outfit', sans-serif;
+}
+
+.font-inter {
+  font-family: 'Inter', sans-serif;
+}

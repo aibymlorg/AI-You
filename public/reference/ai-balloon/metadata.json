@@ -1,0 +1,5 @@
+{
+  "name": "AI Balloon Saver",
+  "description": "An educational game where players save water balloons containing correct AI concepts while learning the differences between AI, ML, DL, and GenAI.",
+  "requestFramePermissions": []
+}
