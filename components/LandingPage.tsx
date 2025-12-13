@@ -4,7 +4,7 @@ import { Player } from '../player-types';
 import AuthModal from './AuthModal';
 import UnifiedProgressDashboard from './UnifiedProgressDashboard';
 import Leaderboard from './Leaderboard';
-import { LogOut, User, Trophy, TrendingUp } from 'lucide-react';
+import { LogOut, User, Trophy, TrendingUp, Languages } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useScore } from '../contexts/ScoreContext';
 
@@ -13,7 +13,7 @@ interface LandingPageProps {
 }
 
 const LandingPage: React.FC<LandingPageProps> = ({ onStartMission }) => {
-  const { t } = useLanguage();
+  const { t, language, setLanguage } = useLanguage();
   const { getTotalProgress } = useScore();
   const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -22,6 +22,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStartMission }) => {
   const [showLeaderboard, setShowLeaderboard] = useState(false);
 
   const totalProgress = getTotalProgress();
+
+  const toggleLanguage = () => {
+    setLanguage(language === 'en' ? 'zh' : 'en');
+  };
 
   useEffect(() => {
     // Check if player is already logged in
@@ -51,6 +55,14 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStartMission }) => {
         <div className="text-2xl font-bold font-['Space_Grotesk'] tracking-tighter">AI & YOU</div>
 
         <div className="flex items-center gap-3">
+          <button
+            onClick={toggleLanguage}
+            className="bg-slate-800/50 border border-slate-700 text-slate-300 px-3 py-2 rounded-full font-bold hover:bg-slate-700 hover:text-white transition flex items-center gap-2"
+            title={language === 'en' ? '切換至繁體中文' : 'Switch to English'}
+          >
+            <Languages size={18} />
+            <span className="text-sm font-mono">{language === 'en' ? '中文' : 'EN'}</span>
+          </button>
           <button
             onClick={() => setShowLeaderboard(true)}
             className="bg-slate-800/50 border border-slate-700 text-slate-300 px-4 py-2 rounded-full font-bold hover:bg-slate-700 hover:text-white transition flex items-center gap-2"
