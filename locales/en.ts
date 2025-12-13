@@ -201,7 +201,101 @@ export const en = {
           'Impact: Massive acceleration in AI adoption.'
         ]
       }
-    }
+    },
+
+    // Quiz Questions
+    questions: [
+      {
+        text: "Which best defines Artificial Intelligence (AI) in its broadest sense?",
+        options: [
+          "Predicting future data points only.",
+          "Simulating brain functions exactly.",
+          "Simulating human intelligence (learning, inference).",
+          "Creating new content only."
+        ]
+      },
+      {
+        text: "What was a prominent early AI application (80s-90s) based on specific programmed knowledge?",
+        options: [
+          "Large Language Models",
+          "Deep Learning",
+          "Expert Systems",
+          "GANs"
+        ]
+      },
+      {
+        text: "How does Machine Learning (ML) differ from earlier AI forms?",
+        options: [
+          "Requires explicit programming for everything.",
+          "Focuses on creating new content.",
+          "Learns patterns from data without explicit programming.",
+          "Mimics brain structure strictly."
+        ]
+      },
+      {
+        text: "In cybersecurity, what is a key application of Machine Learning?",
+        options: [
+          "Deepfake videos",
+          "Text prediction",
+          "Detecting 'outliers' or anomalies.",
+          "Music composition"
+        ]
+      },
+      {
+        text: "What defines Deep Learning (DL) compared to general ML?",
+        options: [
+          "Simple linear algorithms.",
+          "Text-only focus.",
+          "Multi-layered neural networks mimicking the brain.",
+          "Small datasets only."
+        ]
+      },
+      {
+        text: "What does 'Deep' refer to in Deep Learning?",
+        options: [
+          "Philosophical depth",
+          "Complex equations",
+          "Multiple layers of neural networks.",
+          "Understanding consciousness"
+        ]
+      },
+      {
+        text: "What is the core function of Generative AI?",
+        options: [
+          "Summarizing without altering.",
+          "Generating entirely new, original content.",
+          "Database management.",
+          "Faster calculations."
+        ]
+      },
+      {
+        text: "What foundational technology powers modern Generative AI?",
+        options: [
+          "Expert Systems",
+          "Perceptrons",
+          "Foundation Models (e.g., LLMs)",
+          "RNNs"
+        ]
+      },
+      {
+        text: "What is the primary driver behind recent AI adoption acceleration?",
+        options: [
+          "New programming languages",
+          "Computing power only",
+          "Advancements in GenAI and Foundation Models",
+          "Government mandates"
+        ]
+      },
+      {
+        text: "Which is an application of GenAI with both useful and abusive potential?",
+        options: [
+          "Financial outlier detection",
+          "Antivirus software",
+          "Deep fakes and synthetic voices",
+          "Logistics optimization"
+        ]
+      }
+    ]
   },
 
   // Brain Potential Game

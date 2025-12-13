@@ -1,7 +1,9 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import { BalloonEntity, Question } from '../../ai-balloon-types';
-import { BALLOON_COLORS, QUIZ_DATA } from '../../ai-balloon-constants';
+import { BALLOON_COLORS } from '../../ai-balloon-constants';
 import Balloon from './Balloon';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { getAIBalloonQuestions } from '../../utils/questionTranslations';
 
 interface GameEngineProps {
   onGameOver: (score: number, total: number) => void;
@@ -13,6 +15,9 @@ const MAX_MISSES = 5;
 const MAX_MISTAKES = 3;
 
 const GameEngine: React.FC<GameEngineProps> = ({ onGameOver, onVictory }) => {
+  const { t } = useLanguage();
+  const QUIZ_DATA = useMemo(() => getAIBalloonQuestions(t), [t]);
+
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [balloons, setBalloons] = useState<BalloonEntity[]>([]);
   const [score, setScore] = useState(0);
