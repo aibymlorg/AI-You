@@ -242,4 +242,47 @@ export const zh = {
     aiTerminology: 'AI術語',
     futureOfAI: 'AI的未來',
   },
+
+  // Teachable Machine
+  teachableMachine: {
+    // Header
+    title: '可教學機器',
+    about: '關於',
+    faq: '常見問題',
+    getStarted: '開始使用',
+
+    // Tutorial Steps
+    class: '類別',
+    step1Title: '收集',
+    step1Desc: '收集並將您的範例分組到類別中，您希望電腦學習的分類。',
+    step2Title: '訓練',
+    step2Desc: '訓練您的模型，然後立即測試它是否可以正確分類新的範例。',
+    step3Title: '匯出',
+    step3Desc: '將您的模型匯出到您的專案：網站、應用程式等。您可以下載模型或將其託管在線上。',
+    trainModelButton: '訓練模型',
+    myProject: '我的專案',
+
+    // Workbench
+    addClass: '新增類別',
+    training: '訓練',
+    trainModel: '訓練模型',
+    trainingModel: '正在訓練模型...',
+    usingTensorFlow: '使用 TensorFlow.js + MobileNet',
+    modelTrained: '模型已訓練完成！',
+    retrain: '重新訓練',
+    preview: '預覽',
+    on: '開啟',
+    off: '關閉',
+    toggleOn: '切換為開啟以測試您的模型',
+    trainToEnable: '訓練模型以啟用預覽',
+    alertNoSamples: '訓練前請至少為每個類別新增一個樣本。',
+
+    // Class Card
+    holdToRecord: '按住錄製',
+    recordClip: '錄製2秒影片',
+    recording: '錄製中...',
+    rec: '錄製',
+    samples: '樣本',
+    addSamplesHint: '使用上方按鈕新增樣本。',
+  },
 };

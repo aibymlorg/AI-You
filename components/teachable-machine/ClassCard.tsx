@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Camera, Trash2, Edit2, X, Video, Square } from 'lucide-react';
 import { MachineClass } from '../../teachable-machine-types';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 interface ClassCardProps {
   cls: MachineClass;
@@ -11,6 +12,7 @@ interface ClassCardProps {
 }
 
 const ClassCard: React.FC<ClassCardProps> = ({ cls, onUpdate, onRemove, isActive, stream }) => {
+  const { t } = useLanguage();
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   
@@ -209,7 +211,7 @@ const ClassCard: React.FC<ClassCardProps> = ({ cls, onUpdate, onRemove, isActive
                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                  <div className="absolute inset-0 border-[6px] border-red-500 animate-pulse"></div>
                  <div className="bg-red-600/80 text-white px-3 py-1 rounded-full text-xs font-bold z-10">
-                   REC {Math.round(clipProgress)}%
+                   {t('teachableMachine.rec')} {Math.round(clipProgress)}%
                  </div>
                </div>
              )}
@@ -225,15 +227,15 @@ const ClassCard: React.FC<ClassCardProps> = ({ cls, onUpdate, onRemove, isActive
                onMouseLeave={stopFrameRecording}
                onTouchStart={(e) => { e.preventDefault(); startFrameRecording(); }}
                onTouchEnd={(e) => { e.preventDefault(); stopFrameRecording(); }}
-               className={`flex-1 rounded-lg border-2 border-dashed flex flex-col items-center justify-center transition-colors select-none 
-                 ${isRecordingFrames 
-                   ? 'bg-[#e8f0fe] border-[#1a73e8]' 
-                   : 'border-gray-300 hover:bg-gray-100 hover:border-gray-400'} 
+               className={`flex-1 rounded-lg border-2 border-dashed flex flex-col items-center justify-center transition-colors select-none
+                 ${isRecordingFrames
+                   ? 'bg-[#e8f0fe] border-[#1a73e8]'
+                   : 'border-gray-300 hover:bg-gray-100 hover:border-gray-400'}
                  ${!isActive || isRecordingClip ? 'opacity-50 cursor-not-allowed' : ''}`}
                disabled={!isActive || isRecordingClip}
              >
                 <Camera className={`w-5 h-5 mb-1 ${isRecordingFrames ? 'text-[#1a73e8]' : 'text-gray-600'}`} />
-                <span className="text-[10px] font-bold text-gray-600 uppercase">Hold to Record</span>
+                <span className="text-[10px] font-bold text-gray-600 uppercase">{t('teachableMachine.holdToRecord')}</span>
              </button>
 
              {/* Button 2: Record Clip */}
@@ -252,7 +254,7 @@ const ClassCard: React.FC<ClassCardProps> = ({ cls, onUpdate, onRemove, isActive
                    <Video className="w-5 h-5 mb-1 text-gray-600" />
                 )}
                 <span className={`text-[10px] font-bold uppercase ${isRecordingClip ? 'text-red-500' : 'text-gray-600'}`}>
-                  {isRecordingClip ? 'Recording...' : 'Record 2s Clip'}
+                  {isRecordingClip ? t('teachableMachine.recording') : t('teachableMachine.recordClip')}
                 </span>
              </button>
 
@@ -260,7 +262,7 @@ const ClassCard: React.FC<ClassCardProps> = ({ cls, onUpdate, onRemove, isActive
         </div>
 
         <div className="text-sm text-gray-500 font-medium">
-          {cls.samples.length} Samples
+          {cls.samples.length} {t('teachableMachine.samples')}
         </div>
 
         {/* Samples Grid */}
@@ -268,13 +270,13 @@ const ClassCard: React.FC<ClassCardProps> = ({ cls, onUpdate, onRemove, isActive
            {cls.samples.map((sample) => (
              <div key={sample.id} className="relative group aspect-square rounded overflow-hidden shadow-sm bg-gray-100 border border-gray-200">
                 {sample.type === 'video' ? (
-                   <video 
-                    src={sample.dataUrl} 
-                    className="w-full h-full object-cover opacity-80" 
-                    autoPlay 
-                    loop 
-                    muted 
-                    playsInline 
+                   <video
+                    src={sample.dataUrl}
+                    className="w-full h-full object-cover opacity-80"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
                    />
                 ) : (
                    <img src={sample.dataUrl} className="w-full h-full object-cover" alt="sample" />
@@ -286,8 +288,8 @@ const ClassCard: React.FC<ClassCardProps> = ({ cls, onUpdate, onRemove, isActive
                     <Video className="w-3 h-3 text-white drop-shadow-md" />
                   </div>
                 )}
-                
-                <button 
+
+                <button
                   onClick={() => handleDeleteSample(sample.id)}
                   className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white transition-opacity"
                 >
@@ -297,7 +299,7 @@ const ClassCard: React.FC<ClassCardProps> = ({ cls, onUpdate, onRemove, isActive
            ))}
            {cls.samples.length === 0 && (
              <div className="col-span-4 py-8 text-center text-gray-400 text-xs italic">
-               Use buttons above to add samples.
+               {t('teachableMachine.addSamplesHint')}
              </div>
            )}
         </div>

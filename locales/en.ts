@@ -242,4 +242,47 @@ export const en = {
     aiTerminology: 'AI Terminology',
     futureOfAI: 'Future of AI',
   },
+
+  // Teachable Machine
+  teachableMachine: {
+    // Header
+    title: 'Teachable Machine',
+    about: 'About',
+    faq: 'FAQ',
+    getStarted: 'Get Started',
+
+    // Tutorial Steps
+    class: 'Class',
+    step1Title: 'Gather',
+    step1Desc: 'Gather and group your examples into classes, or categories, that you want the computer to learn.',
+    step2Title: 'Train',
+    step2Desc: 'Train your model, then instantly test it out to see whether it can correctly classify new examples.',
+    step3Title: 'Export',
+    step3Desc: 'Export your model for your projects: sites, apps, and more. You can download your model or host it online.',
+    trainModelButton: 'TRAIN MODEL',
+    myProject: 'MY PROJECT',
+
+    // Workbench
+    addClass: 'Add a class',
+    training: 'Training',
+    trainModel: 'Train Model',
+    trainingModel: 'Training model...',
+    usingTensorFlow: 'Using TensorFlow.js + MobileNet',
+    modelTrained: 'Model Trained!',
+    retrain: 'Retrain',
+    preview: 'Preview',
+    on: 'ON',
+    off: 'OFF',
+    toggleOn: 'Toggle ON to test your model',
+    trainToEnable: 'Train model to enable preview',
+    alertNoSamples: 'Please add at least one sample to each class before training.',
+
+    // Class Card
+    holdToRecord: 'Hold to Record',
+    recordClip: 'Record 2s Clip',
+    recording: 'Recording...',
+    rec: 'REC',
+    samples: 'Samples',
+    addSamplesHint: 'Use buttons above to add samples.',
+  },
 };

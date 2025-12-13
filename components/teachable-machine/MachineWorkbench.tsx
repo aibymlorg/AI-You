@@ -3,11 +3,13 @@ import { MachineClass, TrainingState } from '../../teachable-machine-types';
 import ClassCard from './ClassCard';
 import { Plus, Loader2, RefreshCw } from 'lucide-react';
 import { trainClassDescription, classifyImage } from '../../services/tensorflowService';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const MachineWorkbench: React.FC = () => {
+  const { t } = useLanguage();
   const [classes, setClasses] = useState<MachineClass[]>([
-    { id: '1', name: 'Class 1', samples: [] },
-    { id: '2', name: 'Class 2', samples: [] }
+    { id: '1', name: `${t('teachableMachine.class')} 1`, samples: [] },
+    { id: '2', name: `${t('teachableMachine.class')} 2`, samples: [] }
   ]);
   const [trainingState, setTrainingState] = useState<TrainingState>(TrainingState.IDLE);
   const [isInferring, setIsInferring] = useState(false);
@@ -51,7 +53,7 @@ const MachineWorkbench: React.FC = () => {
 
   const addClass = () => {
     const newId = (classes.length + 1).toString();
-    setClasses([...classes, { id: newId, name: `Class ${newId}`, samples: [] }]);
+    setClasses([...classes, { id: newId, name: `${t('teachableMachine.class')} ${newId}`, samples: [] }]);
   };
 
   const removeClass = (id: string) => {
@@ -64,7 +66,7 @@ const MachineWorkbench: React.FC = () => {
 
   const handleTrain = async () => {
     if (classes.some(c => c.samples.length === 0)) {
-      alert("Please add at least one sample to each class before training.");
+      alert(t('teachableMachine.alertNoSamples'));
       return;
     }
 
@@ -143,46 +145,46 @@ const MachineWorkbench: React.FC = () => {
                 stream={globalStream}   // Pass shared stream
               />
             ))}
-            <button 
+            <button
               onClick={addClass}
               className="py-4 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 font-medium hover:bg-gray-50 hover:border-gray-400 transition-colors flex items-center justify-center gap-2"
             >
-              <Plus className="w-5 h-5" /> Add a class
+              <Plus className="w-5 h-5" /> {t('teachableMachine.addClass')}
             </button>
          </div>
 
          {/* CENTER: Training Controls */}
          <div className="lg:col-span-2 flex flex-col items-center justify-center">
             <div className="bg-white p-6 rounded-lg shadow-sm w-full flex flex-col items-center gap-4 text-center">
-               <h3 className="font-bold text-gray-700">Training</h3>
-               
+               <h3 className="font-bold text-gray-700">{t('teachableMachine.training')}</h3>
+
                {trainingState === TrainingState.IDLE && (
-                 <button 
+                 <button
                   onClick={handleTrain}
                   className="bg-[#1a73e8] hover:bg-[#1557b0] text-white font-bold py-3 px-8 rounded shadow transition-transform active:scale-95 flex items-center gap-2"
                  >
-                   Train Model
+                   {t('teachableMachine.trainModel')}
                  </button>
                )}
 
                {trainingState === TrainingState.TRAINING && (
                  <div className="flex flex-col items-center gap-2">
                    <Loader2 className="w-8 h-8 text-[#1a73e8] animate-spin" />
-                   <span className="text-sm text-gray-600 font-medium">Training model...</span>
-                   <span className="text-xs text-gray-400">Using TensorFlow.js + MobileNet</span>
+                   <span className="text-sm text-gray-600 font-medium">{t('teachableMachine.trainingModel')}</span>
+                   <span className="text-xs text-gray-400">{t('teachableMachine.usingTensorFlow')}</span>
                  </div>
                )}
 
                {trainingState === TrainingState.READY && (
                  <div className="flex flex-col items-center gap-4 w-full">
                     <div className="text-green-600 font-bold flex items-center gap-2">
-                      Model Trained!
+                      {t('teachableMachine.modelTrained')}
                     </div>
-                    <button 
+                    <button
                        onClick={() => setTrainingState(TrainingState.IDLE)}
                        className="text-gray-400 hover:text-gray-600 text-xs flex items-center gap-1"
                     >
-                      <RefreshCw className="w-3 h-3" /> Retrain
+                      <RefreshCw className="w-3 h-3" /> {t('teachableMachine.retrain')}
                     </button>
                  </div>
                )}
@@ -194,12 +196,12 @@ const MachineWorkbench: React.FC = () => {
          <div className="lg:col-span-5">
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-[500px] flex flex-col overflow-hidden">
                <div className="p-4 border-b border-gray-100 bg-gray-50 flex items-center justify-between">
-                 <h3 className="text-lg font-medium text-gray-800">Preview</h3>
+                 <h3 className="text-lg font-medium text-gray-800">{t('teachableMachine.preview')}</h3>
                  <div className="flex items-center gap-2">
                     <label className="relative inline-flex items-center cursor-pointer">
-                      <input 
-                        type="checkbox" 
-                        className="sr-only peer" 
+                      <input
+                        type="checkbox"
+                        className="sr-only peer"
                         checked={isInferring}
                         onChange={() => trainingState === TrainingState.READY && setIsInferring(!isInferring)}
                         disabled={trainingState !== TrainingState.READY}
@@ -207,19 +209,19 @@ const MachineWorkbench: React.FC = () => {
                       <div className={`w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all ${trainingState === TrainingState.READY ? 'peer-checked:bg-[#1a73e8]' : 'opacity-50 cursor-not-allowed'}`}></div>
                     </label>
                     <span className={`text-sm font-medium ${isInferring ? 'text-[#1a73e8]' : 'text-gray-400'}`}>
-                      {isInferring ? 'ON' : 'OFF'}
+                      {isInferring ? t('teachableMachine.on') : t('teachableMachine.off')}
                     </span>
                  </div>
                </div>
-               
+
                <div className="flex-1 p-6 flex flex-col items-center gap-6">
                   {/* Preview Box */}
                   <div className="w-64 h-64 bg-black rounded-lg overflow-hidden relative shadow-md">
                      {!isInferring ? (
                         <div className="w-full h-full flex items-center justify-center text-gray-500 text-center p-4">
-                           {trainingState === TrainingState.READY 
-                              ? "Toggle ON to test your model" 
-                              : "Train model to enable preview"}
+                           {trainingState === TrainingState.READY
+                              ? t('teachableMachine.toggleOn')
+                              : t('teachableMachine.trainToEnable')}
                         </div>
                      ) : (
                         <>
