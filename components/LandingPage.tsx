@@ -65,9 +65,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStartMission }) => {
           </button>
           <button
             onClick={() => setShowLeaderboard(true)}
-            className="bg-slate-800/50 border border-slate-700 text-slate-300 px-4 py-2 rounded-full font-bold hover:bg-slate-700 hover:text-white transition flex items-center gap-2"
+            className="bg-slate-800/50 border border-slate-700 text-slate-300 px-3 py-1.5 rounded-full font-medium hover:bg-slate-700 hover:text-white transition flex items-center gap-1.5 text-sm"
           >
-            <TrendingUp size={18} />
+            <TrendingUp size={16} />
             <span className="hidden md:inline">{t('landing.viewLeaderboard')}</span>
           </button>
           <button
