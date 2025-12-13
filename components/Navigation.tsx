@@ -1,7 +1,8 @@
 import React from 'react';
-import { ChevronLeft, ChevronRight, Home, Zap, Move } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Home, Zap, Move, Languages } from 'lucide-react';
 import { NavigationProps } from '../types';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const Navigation: React.FC<NavigationProps> = ({
   currentSlideIndex,
@@ -11,8 +12,13 @@ const Navigation: React.FC<NavigationProps> = ({
   onHome,
   slideTitle
 }) => {
+  const { language, setLanguage, t } = useLanguage();
   const progressPercentage = ((currentSlideIndex + 1) / totalSlides) * 100;
   const xpEarned = (currentSlideIndex + 1) * 100; // 100 XP per mission
+
+  const toggleLanguage = () => {
+    setLanguage(language === 'en' ? 'zh' : 'en');
+  };
 
   return (
     <motion.div
@@ -34,7 +40,7 @@ const Navigation: React.FC<NavigationProps> = ({
         <div className="absolute -top-1 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
           <div className="flex items-center gap-1 px-2 py-0.5 bg-purple-600 rounded-b text-white">
             <Move size={10} />
-            <span className="text-[8px] font-bold uppercase tracking-wider">Drag to Move</span>
+            <span className="text-[8px] font-bold uppercase tracking-wider">{t('nav.dragToMove')}</span>
           </div>
         </div>
 
@@ -43,6 +49,17 @@ const Navigation: React.FC<NavigationProps> = ({
 
           {/* Left Controls */}
           <div className="flex items-center gap-1">
+            <button
+              onClick={toggleLanguage}
+              className="p-1.5 text-slate-400 hover:text-cyan-400 hover:bg-slate-800 rounded-lg transition-all group relative"
+              title={language === 'en' ? '切換至繁體中文' : 'Switch to English'}
+            >
+              <Languages size={16} className="group-hover:scale-110 transition-transform" />
+              <span className="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[8px] font-bold text-cyan-400 opacity-0 group-hover:opacity-100 whitespace-nowrap">
+                {language === 'en' ? '中文' : 'EN'}
+              </span>
+            </button>
+            <div className="w-px h-4 bg-slate-700 mx-0.5"></div>
             <button
               onClick={onHome}
               className="p-1.5 text-slate-400 hover:text-purple-400 hover:bg-slate-800 rounded-lg transition-all group"
@@ -66,10 +83,10 @@ const Navigation: React.FC<NavigationProps> = ({
             <div className="text-center">
               <div className="flex items-center justify-center gap-1.5">
                 <span className="text-[10px] font-bold font-mono text-purple-400 uppercase tracking-wide">
-                  {currentSlideIndex + 1} / {totalSlides}
+                  {t('nav.mission')} {currentSlideIndex + 1} / {totalSlides}
                 </span>
                 <span className="px-1.5 py-0.5 bg-purple-900/50 border border-purple-500/30 rounded text-[9px] font-bold text-purple-300">
-                  LVL {currentSlideIndex + 1}
+                  {t('nav.level')} {currentSlideIndex + 1}
                 </span>
               </div>
             </div>
@@ -109,7 +126,7 @@ const Navigation: React.FC<NavigationProps> = ({
       {/* Keyboard Hint */}
       <div className="text-center mt-1 opacity-0 hover:opacity-100 transition-opacity duration-300">
          <span className="text-[9px] text-slate-500 bg-slate-950/80 border border-slate-800 px-2 py-1 rounded font-mono">
-           ← → Navigate • Drag to Reposition
+           {t('nav.arrowKeys')}
          </span>
       </div>
     </motion.div>

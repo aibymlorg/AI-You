@@ -2,6 +2,7 @@ import React from 'react';
 import { useScore } from '../contexts/ScoreContext';
 import { Brain, BookOpen, Rocket, Sparkles, Trophy, RotateCcw, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface UnifiedProgressDashboardProps {
   isOpen: boolean;
@@ -10,11 +11,12 @@ interface UnifiedProgressDashboardProps {
 
 const UnifiedProgressDashboard: React.FC<UnifiedProgressDashboardProps> = ({ isOpen, onClose }) => {
   const { scores, resetAllScores, getTotalProgress } = useScore();
+  const { t } = useLanguage();
 
   const modules = [
     {
       id: 'module5',
-      name: 'Generated AI',
+      nameKey: 'dashboard.generatedAI',
       icon: Sparkles,
       color: 'from-cyan-500 to-purple-500',
       bgColor: 'bg-cyan-500/10',
@@ -22,7 +24,7 @@ const UnifiedProgressDashboard: React.FC<UnifiedProgressDashboardProps> = ({ isO
     },
     {
       id: 'module2',
-      name: 'Brain Potential',
+      nameKey: 'dashboard.brainPotential',
       icon: Brain,
       color: 'from-blue-500 to-cyan-500',
       bgColor: 'bg-blue-500/10',
@@ -30,7 +32,7 @@ const UnifiedProgressDashboard: React.FC<UnifiedProgressDashboardProps> = ({ isO
     },
     {
       id: 'module3',
-      name: 'AI Terminology',
+      nameKey: 'dashboard.aiTerminology',
       icon: BookOpen,
       color: 'from-violet-500 to-purple-500',
       bgColor: 'bg-violet-500/10',
@@ -38,7 +40,7 @@ const UnifiedProgressDashboard: React.FC<UnifiedProgressDashboardProps> = ({ isO
     },
     {
       id: 'module4',
-      name: 'Future of AI',
+      nameKey: 'dashboard.futureOfAI',
       icon: Rocket,
       color: 'from-red-500 to-orange-500',
       bgColor: 'bg-red-500/10',
@@ -89,9 +91,9 @@ const UnifiedProgressDashboard: React.FC<UnifiedProgressDashboardProps> = ({ isO
               <div>
                 <h2 className="text-3xl font-bold text-white flex items-center gap-3">
                   <Trophy className="text-yellow-400" size={32} />
-                  Your Progress Dashboard
+                  {t('dashboard.title')}
                 </h2>
-                <p className="text-slate-400 mt-1">Track your journey through AI modules</p>
+                <p className="text-slate-400 mt-1">{t('dashboard.subtitle')}</p>
               </div>
               <button
                 onClick={onClose}
@@ -104,8 +106,8 @@ const UnifiedProgressDashboard: React.FC<UnifiedProgressDashboardProps> = ({ isO
             {/* Overall Progress */}
             <div className="p-6 bg-slate-800/50 border-b border-slate-700">
               <div className="flex justify-between items-center mb-3">
-                <span className="text-lg font-semibold text-slate-200">Overall Progress</span>
-                <span className="text-2xl font-bold text-purple-400">{completedModules}/4 Modules</span>
+                <span className="text-lg font-semibold text-slate-200">{t('dashboard.overallProgress')}</span>
+                <span className="text-2xl font-bold text-purple-400">{completedModules}/4 {t('dashboard.modules')}</span>
               </div>
               <div className="h-3 bg-slate-700 rounded-full overflow-hidden">
                 <motion.div
@@ -115,7 +117,7 @@ const UnifiedProgressDashboard: React.FC<UnifiedProgressDashboardProps> = ({ isO
                   className="h-full bg-gradient-to-r from-purple-500 to-pink-500"
                 />
               </div>
-              <p className="text-sm text-slate-400 mt-2">{Math.round(totalProgress)}% Complete</p>
+              <p className="text-sm text-slate-400 mt-2">{Math.round(totalProgress)}{t('dashboard.percentComplete')}</p>
             </div>
 
             {/* Module Scores */}
@@ -141,10 +143,10 @@ const UnifiedProgressDashboard: React.FC<UnifiedProgressDashboardProps> = ({ isO
                             <Icon className="text-white" size={20} />
                           </div>
                           <div>
-                            <h3 className="font-bold text-white">{module.name}</h3>
+                            <h3 className="font-bold text-white">{t(module.nameKey)}</h3>
                             {moduleScore.completed && (
                               <span className="text-xs text-green-400 flex items-center gap-1">
-                                <Trophy size={12} /> Completed
+                                <Trophy size={12} /> {t('dashboard.completed')}
                               </span>
                             )}
                           </div>
@@ -155,7 +157,7 @@ const UnifiedProgressDashboard: React.FC<UnifiedProgressDashboardProps> = ({ isO
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
                           <span className="text-slate-400">
-                            {module.id === 'module5' ? 'XP Earned' : 'Score'}
+                            {module.id === 'module5' ? t('dashboard.xpEarned') : t('dashboard.score')}
                           </span>
                           <span className="text-slate-200 font-mono">
                             {moduleScore.score} / {moduleScore.maxScore}
@@ -172,9 +174,9 @@ const UnifiedProgressDashboard: React.FC<UnifiedProgressDashboardProps> = ({ isO
                         <div className="flex justify-between text-xs text-slate-500">
                           <span>{percentage}%</span>
                           {moduleScore.attempts ? (
-                            <span>{moduleScore.attempts} attempt{moduleScore.attempts > 1 ? 's' : ''}</span>
+                            <span>{moduleScore.attempts} {t('dashboard.attempts')}</span>
                           ) : (
-                            <span>Not attempted</span>
+                            <span>{t('dashboard.notAttempted')}</span>
                           )}
                         </div>
                       </div>
@@ -189,22 +191,22 @@ const UnifiedProgressDashboard: React.FC<UnifiedProgressDashboardProps> = ({ isO
               <div className="text-sm text-slate-400">
                 {completedModules === 4 ? (
                   <span className="text-green-400 font-semibold flex items-center gap-2">
-                    <Trophy size={16} /> All modules completed! Great work!
+                    <Trophy size={16} /> {t('dashboard.allCompleted')}
                   </span>
                 ) : (
-                  <span>Keep going! {4 - completedModules} module{4 - completedModules > 1 ? 's' : ''} remaining</span>
+                  <span>{t('dashboard.keepGoing')} {4 - completedModules} {t('dashboard.modulesRemaining')}</span>
                 )}
               </div>
               <button
                 onClick={() => {
-                  if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+                  if (confirm(t('dashboard.resetConfirm'))) {
                     resetAllScores();
                   }
                 }}
                 className="flex items-center gap-2 px-4 py-2 bg-red-900/20 border border-red-500/30 text-red-400 rounded-lg hover:bg-red-900/30 transition-colors text-sm font-semibold"
               >
                 <RotateCcw size={16} />
-                Reset All Progress
+                {t('dashboard.resetAll')}
               </button>
             </div>
           </motion.div>

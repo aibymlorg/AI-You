@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { ScoreProvider } from './contexts/ScoreContext';
+import { LanguageProvider } from './contexts/LanguageContext';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
@@ -11,8 +12,10 @@ if (!rootElement) {
 const root = ReactDOM.createRoot(rootElement);
 root.render(
   <React.StrictMode>
-    <ScoreProvider>
-      <App />
-    </ScoreProvider>
+    <LanguageProvider>
+      <ScoreProvider>
+        <App />
+      </ScoreProvider>
+    </LanguageProvider>
   </React.StrictMode>
 );

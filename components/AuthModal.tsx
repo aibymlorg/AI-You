@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { registerPlayer, loginPlayer } from '../services/authServiceSupabase';
 import { X } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -10,6 +11,7 @@ interface AuthModalProps {
 }
 
 const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess, initialMode = 'login' }) => {
+  const { t } = useLanguage();
   const [mode, setMode] = useState<'login' | 'register'>(initialMode);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -32,25 +34,25 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess, initi
     if (mode === 'register') {
       // Validation
       if (!username || !email || !password) {
-        setError('All fields are required');
+        setError(t('auth.allFieldsRequired'));
         setLoading(false);
         return;
       }
 
       if (username.length < 3) {
-        setError('Username must be at least 3 characters');
+        setError(t('auth.usernameMin3'));
         setLoading(false);
         return;
       }
 
       if (password.length < 6) {
-        setError('Password must be at least 6 characters');
+        setError(t('auth.passwordMin6'));
         setLoading(false);
         return;
       }
 
       if (!email.includes('@')) {
-        setError('Please enter a valid email');
+        setError(t('auth.validEmail'));
         setLoading(false);
         return;
       }
@@ -66,7 +68,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess, initi
     } else {
       // Login
       if (!email || !password) {
-        setError('Email and password are required');
+        setError(t('auth.emailPasswordRequired'));
         setLoading(false);
         return;
       }
@@ -103,7 +105,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess, initi
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-white font-['Space_Grotesk']">
-            {mode === 'login' ? 'Welcome Back' : 'Create Account'}
+            {mode === 'login' ? t('auth.welcomeBack') : t('auth.createAccount')}
           </h2>
           <button
             onClick={onClose}
@@ -123,7 +125,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess, initi
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            Login
+            {t('auth.login')}
           </button>
           <button
             onClick={() => { setMode('register'); resetForm(); }}
@@ -133,7 +135,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess, initi
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            Register
+            {t('auth.register')}
           </button>
         </div>
 
@@ -142,7 +144,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess, initi
           <div className="mb-4 bg-blue-900/20 border border-blue-500/30 rounded-lg p-3">
             <div className="flex justify-between items-start">
               <div>
-                <p className="text-xs text-blue-300 font-semibold mb-2">Demo Account:</p>
+                <p className="text-xs text-blue-300 font-semibold mb-2">{t('auth.demoAccount')}</p>
                 <div className="text-xs text-blue-200 space-y-1">
                   <p><span className="font-mono bg-blue-900/30 px-2 py-0.5 rounded">demo@ai-you.com</span></p>
                   <p><span className="font-mono bg-blue-900/30 px-2 py-0.5 rounded">demo123</span></p>
@@ -153,7 +155,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess, initi
                 onClick={fillDemoCredentials}
                 className="text-xs bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded font-semibold transition"
               >
-                Use Demo
+                {t('auth.useDemo')}
               </button>
             </div>
           </div>
@@ -164,13 +166,13 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess, initi
           {mode === 'register' && (
             <div>
               <label className="block text-sm font-medium text-slate-300 mb-2">
-                Username
+                {t('auth.username')}
               </label>
               <input
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="Choose a username"
+                placeholder={t('auth.chooseUsername')}
                 className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 transition"
               />
             </div>
@@ -178,26 +180,26 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess, initi
 
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
-              Email
+              {t('auth.email')}
             </label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="your@email.com"
+              placeholder={t('auth.yourEmail')}
               className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 transition"
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
-              Password
+              {t('auth.password')}
             </label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder={mode === 'register' ? 'Min. 6 characters' : 'Enter password'}
+              placeholder={mode === 'register' ? t('auth.minCharacters') : t('auth.enterPassword')}
               className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 transition"
             />
           </div>
@@ -213,7 +215,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess, initi
             disabled={loading}
             className="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? 'Please wait...' : mode === 'login' ? 'Login' : 'Create Account'}
+            {loading ? t('auth.pleaseWait') : mode === 'login' ? t('auth.loginButton') : t('auth.registerButton')}
           </button>
         </form>
 
@@ -221,16 +223,16 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess, initi
         <div className="mt-6 text-center text-sm text-slate-400">
           {mode === 'login' ? (
             <>
-              Don't have an account?{' '}
+              {t('auth.noAccount')}{' '}
               <button onClick={switchMode} className="text-purple-400 hover:text-purple-300 font-semibold">
-                Register here
+                {t('auth.registerHere')}
               </button>
             </>
           ) : (
             <>
-              Already have an account?{' '}
+              {t('auth.hasAccount')}{' '}
               <button onClick={switchMode} className="text-purple-400 hover:text-purple-300 font-semibold">
-                Login here
+                {t('auth.loginHere')}
               </button>
             </>
           )}
