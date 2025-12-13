@@ -68,6 +68,12 @@ export const zh = {
     module4Desc: '透過神經核心系統掌握重要AI術語。學習RAG、代理式AI等。',
     module5Title: 'AI的未來',
     module5Desc: '基礎模型、自我監督學習和AGI。探索AI的下一步。',
+    module6Title: 'AI氣球救援',
+    module6Desc: '透過互動式氣球接球遊戲掌握AI概念。學習AI、ML、DL和GenAI之間的區別。',
+    module7Title: 'Google Opal AI建構器',
+    module7Desc: '使用AI為自己開發AI。探索Google Opal的新世代影片創作。',
+    module8Title: 'AI的限制',
+    module8Desc: '了解當前AI系統的界限和限制。目標協議任務等待著你。',
   },
 
   // Auth

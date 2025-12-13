@@ -68,6 +68,12 @@ export const en = {
     module4Desc: 'Master essential AI terms through the NeuroCore system. Learn RAG, Agentic AI, and more.',
     module5Title: 'The Future of AI',
     module5Desc: 'Foundation Models, Self-Supervised Learning, and AGI. Explore what\'s next for AI.',
+    module6Title: 'AI Balloon Saver',
+    module6Desc: 'Master AI concepts through an interactive balloon-catching game. Learn the difference between AI, ML, DL, and GenAI.',
+    module7Title: 'Google Opal AI Builder',
+    module7Desc: 'Use AI to develop AI for yourself. Explore the next generation of video creation with Google Opal.',
+    module8Title: 'The Limits of AI',
+    module8Desc: 'Understand the boundaries and constraints of current AI systems. Target Protocol mission awaits.',
   },
 
   // Auth

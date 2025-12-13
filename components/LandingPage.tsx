@@ -269,6 +269,39 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStartMission }) => {
             </div>
           </div>
 
+          {/* Card 6 */}
+          <div className="bg-slate-900 border border-slate-800 p-8 rounded-2xl hover:transform hover:-translate-y-1 hover:shadow-[0_10px_30px_-10px_rgba(168,85,247,0.4)] transition duration-300 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 bg-slate-800 text-xs px-3 py-1 rounded-bl-lg text-slate-300 font-mono">MODULE 06</div>
+            <div className="w-12 h-12 bg-sky-900/50 rounded-lg flex items-center justify-center text-2xl mb-6">🎈</div>
+            <h3 className="text-2xl font-bold mb-2 group-hover:text-sky-400 transition font-['Space_Grotesk']">{t('landing.module6Title')}</h3>
+            <p className="text-slate-400 text-sm mb-4">{t('landing.module6Desc')}</p>
+            <div className="w-full bg-slate-800 h-1.5 rounded-full mt-auto">
+              <div className="bg-sky-500 h-1.5 rounded-full w-0 group-hover:w-full transition-all duration-1000"></div>
+            </div>
+          </div>
+
+          {/* Card 7 */}
+          <div className="bg-slate-900 border border-slate-800 p-8 rounded-2xl hover:transform hover:-translate-y-1 hover:shadow-[0_10px_30px_-10px_rgba(168,85,247,0.4)] transition duration-300 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 bg-slate-800 text-xs px-3 py-1 rounded-bl-lg text-slate-300 font-mono">MODULE 07</div>
+            <div className="w-12 h-12 bg-emerald-900/50 rounded-lg flex items-center justify-center text-2xl mb-6">💎</div>
+            <h3 className="text-2xl font-bold mb-2 group-hover:text-emerald-400 transition font-['Space_Grotesk']">{t('landing.module7Title')}</h3>
+            <p className="text-slate-400 text-sm mb-4">{t('landing.module7Desc')}</p>
+            <div className="w-full bg-slate-800 h-1.5 rounded-full mt-auto">
+              <div className="bg-emerald-500 h-1.5 rounded-full w-0 group-hover:w-full transition-all duration-1000"></div>
+            </div>
+          </div>
+
+          {/* Card 8 */}
+          <div className="bg-slate-900 border border-slate-800 p-8 rounded-2xl hover:transform hover:-translate-y-1 hover:shadow-[0_10px_30px_-10px_rgba(168,85,247,0.4)] transition duration-300 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 bg-slate-800 text-xs px-3 py-1 rounded-bl-lg text-slate-300 font-mono">MODULE 08</div>
+            <div className="w-12 h-12 bg-amber-900/50 rounded-lg flex items-center justify-center text-2xl mb-6">🎯</div>
+            <h3 className="text-2xl font-bold mb-2 group-hover:text-amber-400 transition font-['Space_Grotesk']">{t('landing.module8Title')}</h3>
+            <p className="text-slate-400 text-sm mb-4">{t('landing.module8Desc')}</p>
+            <div className="w-full bg-slate-800 h-1.5 rounded-full mt-auto">
+              <div className="bg-amber-500 h-1.5 rounded-full w-0 group-hover:w-full transition-all duration-1000"></div>
+            </div>
+          </div>
+
           {/* CTA Card */}
           <div className="bg-gradient-to-br from-purple-900 to-indigo-900 p-8 rounded-2xl flex flex-col items-center justify-center text-center">
             <h3 className="text-2xl font-bold mb-2 text-white font-['Space_Grotesk']">{t('landing.readyToBegin')}</h3>
